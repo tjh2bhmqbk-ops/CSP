@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>竞品关系管理 - CSP竞品情报系统</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    body { margin: 0; background: #F5F5F5; }
+    .admin-layout { display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 220px; background: linear-gradient(180deg, #1E3A5F 0%, #0F1F33 100%); color: #fff; padding: 0; flex-shrink: 0; position: fixed; height: 100vh; }
+    .sidebar-logo { padding: 24px 20px; font-size: 18px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-nav { padding: 16px 0; }
+    .nav-section { margin-bottom: 8px; }
+    .nav-section-title { padding: 8px 20px; font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+    .sidebar-item { display: flex; align-items: center; padding: 12px 20px; color: rgba(255,255,255,0.7); font-size: 14px; text-decoration: none; }
+    .sidebar-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .sidebar-item.active { background: rgba(255,255,255,0.15); color: #fff; border-left: 3px solid #fff; }
+    .sidebar-icon { width: 20px; margin-right: 12px; text-align: center; }
+    .admin-main { flex: 1; margin-left: 220px; }
+    .admin-content { padding: 24px; }
+    .page-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #333; }
+    .intro { background: rgba(24,144,255,0.1); border-radius: 10px; padding: 16px; margin-bottom: 24px; font-size: 13px; color: #1890FF; }
+    .relation-card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .relation-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .self-brand { display: flex; align-items: center; gap: 12px; }
+    .brand-logo { width: 44px; height: 44px; background: linear-gradient(135deg, #1E3A5F, #2D5A8E); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; }
+    .brand-name { font-size: 15px; font-weight: 600; color: #333; }
+    .brand-tag { font-size: 11px; color: #52C41A; background: rgba(82,196,26,0.1); padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+    .add-btn { background: #1E3A5F; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 13px; border: none; cursor: pointer; }
+    .competitor-list { border-top: 1px solid #f0f0f0; padding-top: 16px; }
+    .competitor-title { font-size: 12px; color: #999; margin-bottom: 12px; }
+    .competitor-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #f9f9f9; }
+    .competitor-item:last-child { border-bottom: none; }
+    .comp-badge { margin-right: 8px; font-size: 12px; }
+    .comp-badge.core { color: #F5222D; }
+    .comp-badge.normal { color: #8C8C8C; }
+    .comp-name { flex: 1; font-size: 14px; color: #333; }
+    .comp-group { font-size: 12px; color: #999; }
+    .comp-actions { display: flex; gap: 6px; }
+    .comp-btn { padding: 4px 10px; font-size: 11px; border-radius: 4px; border: none; cursor: pointer; background: rgba(30,58,95,0.08); color: #1E3A5F; }
+    .comp-btn.remove { background: rgba(245,34,45,0.08); color: #F5222D; }
+    .toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,0.75); color: #fff; padding: 16px 32px; border-radius: 8px; font-size: 14px; z-index: 1000; display: none; }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="sidebar-logo">📊 CSP竞品情报</div>
+      <div class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">数据中心</div>
+          <a href="index.html" class="sidebar-item"><span class="sidebar-icon">🏠</span><span>首页概览</span></a>
+          <a href="alert-center.html" class="sidebar-item"><span class="sidebar-icon">⚠️</span><span>异常预警</span></a>
+          <a href="reports.html" class="sidebar-item"><span class="sidebar-icon">📈</span><span>数据报表</span></a>
+          <a href="review-admin.html" class="sidebar-item"><span class="sidebar-icon">✅</span><span>修改审批</span></a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">基础管理</div>
+          <a href="brand.html" class="sidebar-item"><span class="sidebar-icon">🏢</span><span>品牌管理</span></a>
+          <a href="#" class="sidebar-item active"><span class="sidebar-icon">⚔️</span><span>竞品关系</span></a>
+          <a href="region.html" class="sidebar-item"><span class="sidebar-icon">📍</span><span>区域/城市</span></a>
+          <a href="counter.html" class="sidebar-item"><span class="sidebar-icon">🏪</span><span>柜台管理</span></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="admin-main">
+      <div class="admin-content">
+        <h2 class="page-title">⚔️ 竞品关系管理</h2>
+        
+        <div class="intro">
+          💡 说明：● 表示核心竞争关系，○ 表示普通竞争关系。核心竞品将优先展示在BA上报界面。
+        </div>
+        
+        <div class="relation-card">
+          <div class="relation-header">
+            <div class="self-brand">
+              <div class="brand-logo">💄</div>
+              <span class="brand-name">Chanel<span class="brand-tag">本品</span></span>
+            </div>
+            <button class="add-btn" onclick="showToast('请选择竞品品牌')">+ 添加竞品</button>
+          </div>
+          
+          <div class="competitor-list">
+            <div class="competitor-title">已配置竞品关系</div>
+            
+            <div class="competitor-item">
+              <span class="comp-badge core">●</span>
+              <div>
+                <div class="comp-name">Dior 迪奥</div>
+                <div class="comp-group">LVMH集团</div>
+              </div>
+              <div class="comp-actions">
+                <button class="comp-btn" onclick="showToast('已设为普通竞品')">设为普通</button>
+                <button class="comp-btn remove" onclick="showToast('已移除竞品关系')">移除</button>
+              </div>
+            </div>
+            
+            <div class="competitor-item">
+              <span class="comp-badge core">●</span>
+              <div>
+                <div class="comp-name">Louis Vuitton</div>
+                <div class="comp-group">LVMH集团</div>
+              </div>
+              <div class="comp-actions">
+                <button class="comp-btn" onclick="showToast('已设为普通竞品')">设为普通</button>
+                <button class="comp-btn remove" onclick="showToast('已移除竞品关系')">移除</button>
+              </div>
+            </div>
+            
+            <div class="competitor-item">
+              <span class="comp-badge core">●</span>
+              <div>
+                <div class="comp-name">Hermès 爱马仕</div>
+                <div class="comp-group">爱马仕集团</div>
+              </div>
+              <div class="comp-actions">
+                <button class="comp-btn" onclick="showToast('已设为普通竞品')">设为普通</button>
+                <button class="comp-btn remove" onclick="showToast('已移除竞品关系')">移除</button>
+              </div>
+            </div>
+            
+            <div class="competitor-item">
+              <span class="comp-badge normal">○</span>
+              <div>
+                <div class="comp-name">Gucci 古驰</div>
+                <div class="comp-group">开云集团</div>
+              </div>
+              <div class="comp-actions">
+                <button class="comp-btn" onclick="showToast('已设为核心竞品')">设为核心</button>
+                <button class="comp-btn remove" onclick="showToast('已移除竞品关系')">移除</button>
+              </div>
+            </div>
+            
+            <div class="competitor-item">
+              <span class="comp-badge normal">○</span>
+              <div>
+                <div class="comp-name">Cartier 卡地亚</div>
+                <div class="comp-group">历峰集团</div>
+              </div>
+              <div class="comp-actions">
+                <button class="comp-btn" onclick="showToast('已设为核心竞品')">设为核心</button>
+                <button class="comp-btn remove" onclick="showToast('已移除竞品关系')">移除</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="toast" id="toast"></div>
+  
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+  </script>
+</body>
+</html>

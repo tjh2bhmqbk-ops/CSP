@@ -1,0 +1,44 @@
+- generic [ref=e2]:
+  - generic [ref=e122]:
+    - generic [ref=e123]:
+      - generic [ref=e124]: 异常柜台
+      - generic [ref=e125]: 共 2 个未上报柜台
+    - generic [ref=e127]:
+      - generic [ref=e128]: 未上报
+      - generic [ref=e129]: "2"
+    - generic [ref=e130]:
+      - generic [ref=e131]:
+        - img [ref=e133]
+        - generic [ref=e135]:
+          - generic [ref=e136]:
+            - generic [ref=e137]: 雅诗兰黛·杭州大厦FSS
+            - generic [ref=e138]: 4月16日
+          - generic [ref=e139]:
+            - generic [ref=e140]: BA：
+            - generic [ref=e141]: 李小芳
+          - generic [ref=e142]: 超过上报截止日期5天仍未提交月报
+        - generic [ref=e145]: 催办
+      - generic [ref=e146]:
+        - img [ref=e148]
+        - generic [ref=e150]:
+          - generic [ref=e151]:
+            - generic [ref=e152]: 雅诗兰黛·杭州城西银泰FSS
+            - generic [ref=e153]: 4月18日
+          - generic [ref=e154]:
+            - generic [ref=e155]: BA：
+            - generic [ref=e156]: 陈小燕
+          - generic [ref=e157]: 超过上报截止日期3天仍未提交月报
+        - generic [ref=e160]: 催办
+  - generic [ref=e108]:
+    - link "上报审批" [ref=e109]:
+      - /url: javascript:;
+      - paragraph [ref=e111]: 上报审批
+    - link "异常柜台" [ref=e112]:
+      - /url: javascript:;
+      - paragraph [ref=e114]: 异常柜台
+    - link "数据报表" [ref=e115]:
+      - /url: javascript:;
+      - paragraph [ref=e117]: 数据报表
+    - link "我的" [ref=e118]:
+      - /url: javascript:;
+      - paragraph [ref=e120]: 我的

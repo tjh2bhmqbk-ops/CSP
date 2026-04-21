@@ -1,0 +1,227 @@
+@import '@/styles/variables.scss';
+
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.45);
+  animation: fadeIn 250ms ease forwards;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+.modal-content {
+  width: 100%;
+  max-height: 85vh;
+  border-radius: $radius-xl $radius-xl 0 0;
+  background: #FFFFFF;
+  overflow-y: auto;
+  animation: slideUp 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100rpx;
+  padding: 0 $spacing-xl;
+  border-bottom: 1px solid $csp-border-light;
+  position: sticky;
+  top: 0;
+  background: #FFFFFF;
+  z-index: 1;
+}
+
+.modal-close {
+  width: 56rpx; height: 56rpx;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  &:active { background: #F0F0F0; }
+}
+
+.modal-title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+}
+
+// --- 区块 ---
+.modal-section {
+  padding: $spacing-xl $spacing-xl 0;
+  &__title {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $csp-text-primary;
+    margin-bottom: $spacing-md;
+    padding-left: 16rpx;
+    border-left: 4rpx solid $primary-start;
+  }
+}
+
+// --- 行信息 ---
+.modal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md 0;
+  border-bottom: 1px solid $csp-border-light;
+  &:last-child { border-bottom: none; }
+  &__label { font-size: $font-size-sm; color: $csp-text-secondary; }
+  &__value { font-size: $font-size-sm; color: $csp-text-primary; font-weight: $font-weight-medium; }
+}
+
+.modal-status-badge {
+  padding: 4rpx 16rpx;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+// --- 竞品明细 ---
+.modal-comp-item {
+  padding: $spacing-md 0;
+  border-bottom: 1px solid $csp-border-light;
+  &:last-child { border-bottom: none; }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+.modal-comp-dot {
+  width: 12rpx; height: 12rpx;
+  border-radius: 50%;
+  background-color: $normal-badge;
+  &.--core { background-color: $core-badge; box-shadow: 0 0 6rpx rgba(245,34,45,0.35); }
+}
+
+.modal-comp-name {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+}
+
+.modal-comp-status {
+  font-size: $font-size-xs;
+  color: $csp-text-secondary;
+  padding: 4rpx 16rpx;
+  border-radius: $radius-full;
+  background: #F5F5F5;
+}
+
+.modal-comp-detail {
+  display: flex;
+  gap: $spacing-xl;
+  padding-left: 22rpx;
+  &__item { font-size: $font-size-xs; color: $csp-text-secondary; }
+}
+
+// --- 合计 ---
+.modal-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $spacing-md;
+  padding: $spacing-md $spacing-lg;
+  background: linear-gradient(135deg, #EBF5FF, #F0F7FF);
+  border-radius: $radius-md;
+  border: 1px solid rgba(30, 58, 95, 0.08);
+}
+
+.modal-total-label {
+  font-size: $font-size-sm;
+  color: $csp-text-secondary;
+  font-weight: $font-weight-medium;
+}
+
+.modal-total-value {
+  font-size: $font-size-md;
+  color: $primary-start;
+  font-weight: $font-weight-bold;
+}
+
+// --- 备注 ---
+.modal-remark {
+  display: block;
+  font-size: $font-size-sm;
+  color: $csp-text-secondary;
+  line-height: 1.6;
+  background: #FAFAFA;
+  padding: $spacing-md;
+  border-radius: $radius-sm;
+}
+
+// --- 驳回 ---
+.modal-reject-box {
+  margin: $spacing-lg $spacing-xl;
+  padding: $spacing-lg;
+  background: $status-rejected-bg;
+  border-radius: $radius-md;
+  border-left: 4rpx solid $status-rejected;
+}
+
+.modal-reject-label {
+  display: block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  color: $status-rejected;
+  margin-bottom: 8rpx;
+}
+
+.modal-reject-text {
+  display: block;
+  font-size: $font-size-sm;
+  color: $status-rejected;
+  line-height: 1.5;
+}
+
+// --- 底部操作 ---
+.modal-footer {
+  display: flex;
+  gap: $spacing-lg;
+  padding: $spacing-xl;
+  border-top: 1px solid $csp-border-light;
+  background: #FFFFFF;
+  position: sticky;
+  bottom: 0;
+
+  &__btn {
+    flex: 1;
+    height: 88rpx;
+    border-radius: $radius-xl;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $transition-fast;
+    &:active { transform: scale(0.97); opacity: 0.9; }
+
+    &--close {
+      background: #F5F5F5;
+      border: 1px solid #E0E0E0;
+    }
+    &--edit {
+      background: linear-gradient(135deg, #1E3A5F, #2D5A8E);
+      box-shadow: 0 4px 12px rgba(30, 58, 95, 0.3);
+    }
+  }
+
+  &__btn-text {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    letter-spacing: 2rpx;
+
+    &--close { color: $csp-text-secondary; }
+    &--edit { color: #FFFFFF; }
+  }
+}

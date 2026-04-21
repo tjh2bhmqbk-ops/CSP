@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>品牌管理 - CSP竞品情报系统</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    body { margin: 0; background: #F5F5F5; }
+    .admin-layout { display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 220px; background: linear-gradient(180deg, #1E3A5F 0%, #0F1F33 100%); color: #fff; padding: 0; flex-shrink: 0; position: fixed; height: 100vh; }
+    .sidebar-logo { padding: 24px 20px; font-size: 18px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-nav { padding: 16px 0; }
+    .nav-section { margin-bottom: 8px; }
+    .nav-section-title { padding: 8px 20px; font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+    .sidebar-item { display: flex; align-items: center; padding: 12px 20px; color: rgba(255,255,255,0.7); font-size: 14px; text-decoration: none; }
+    .sidebar-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .sidebar-item.active { background: rgba(255,255,255,0.15); color: #fff; border-left: 3px solid #fff; }
+    .sidebar-icon { width: 20px; margin-right: 12px; text-align: center; }
+    .admin-main { flex: 1; margin-left: 220px; }
+    .admin-content { padding: 24px; }
+    .page-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #333; display: flex; justify-content: space-between; align-items: center; }
+    .add-btn { background: #1E3A5F; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 14px; border: none; cursor: pointer; }
+    .brand-card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 16px; }
+    .brand-logo { width: 60px; height: 60px; background: linear-gradient(135deg, #1E3A5F, #2D5A8E); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: #fff; }
+    .brand-info { flex: 1; }
+    .brand-name { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px; }
+    .brand-name-en { font-size: 13px; color: #999; margin-bottom: 4px; }
+    .brand-meta { font-size: 12px; color: #666; }
+    .brand-status { padding: 6px 14px; background: rgba(82,196,26,0.1); color: #52C41A; border-radius: 6px; font-size: 12px; }
+    .brand-actions { display: flex; gap: 8px; }
+    .action-btn { padding: 8px 14px; border-radius: 6px; font-size: 13px; border: none; cursor: pointer; }
+    .action-btn.edit { background: rgba(30,58,95,0.1); color: #1E3A5F; }
+    .action-btn.delete { background: rgba(245,34,45,0.1); color: #F5222D; }
+    .toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,0.75); color: #fff; padding: 16px 32px; border-radius: 8px; font-size: 14px; z-index: 1000; display: none; }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="sidebar-logo">📊 CSP竞品情报</div>
+      <div class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">数据中心</div>
+          <a href="index.html" class="sidebar-item"><span class="sidebar-icon">🏠</span><span>首页概览</span></a>
+          <a href="alert-center.html" class="sidebar-item"><span class="sidebar-icon">⚠️</span><span>异常预警</span></a>
+          <a href="reports.html" class="sidebar-item"><span class="sidebar-icon">📈</span><span>数据报表</span></a>
+          <a href="review-admin.html" class="sidebar-item"><span class="sidebar-icon">✅</span><span>修改审批</span></a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">基础管理</div>
+          <a href="#" class="sidebar-item active"><span class="sidebar-icon">🏢</span><span>品牌管理</span></a>
+          <a href="competitor.html" class="sidebar-item"><span class="sidebar-icon">⚔️</span><span>竞品关系</span></a>
+          <a href="region.html" class="sidebar-item"><span class="sidebar-icon">📍</span><span>区域/城市</span></a>
+          <a href="counter.html" class="sidebar-item"><span class="sidebar-icon">🏪</span><span>柜台管理</span></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="admin-main">
+      <div class="admin-content">
+        <div class="page-title">
+          <span>🏢 品牌管理</span>
+          <button class="add-btn" onclick="showToast('请在后台添加品牌')">+ 新增品牌</button>
+        </div>
+        
+        <div class="brand-card">
+          <div class="brand-logo">💄</div>
+          <div class="brand-info">
+            <div class="brand-name">香奈儿 Chanel</div>
+            <div class="brand-name-en">CHANEL</div>
+            <div class="brand-meta">管辖柜台：128个 · 竞品数量：5个</div>
+          </div>
+          <span class="brand-status">● 本品</span>
+          <div class="brand-actions">
+            <button class="action-btn edit" onclick="showToast('正在编辑...')">编辑</button>
+          </div>
+        </div>
+        
+        <div class="brand-card">
+          <div class="brand-logo" style="background: linear-gradient(135deg, #722ED1, #9254DE);">👑</div>
+          <div class="brand-info">
+            <div class="brand-name">迪奥 Dior</div>
+            <div class="brand-name-en">DIOR</div>
+            <div class="brand-meta">LVMH集团 · 管辖柜台：86个</div>
+          </div>
+          <span class="brand-status" style="background:rgba(245,34,45,0.1);color:#F5222D;">● 核心竞品</span>
+          <div class="brand-actions">
+            <button class="action-btn edit" onclick="showToast('正在编辑...')">编辑</button>
+          </div>
+        </div>
+        
+        <div class="brand-card">
+          <div class="brand-logo" style="background: linear-gradient(135deg, #13C2C2, #36CFC9);">🔷</div>
+          <div class="brand-info">
+            <div class="brand-name">路易威登 Louis Vuitton</div>
+            <div class="brand-name-en">LOUIS VUITTON</div>
+            <div class="brand-meta">LVMH集团 · 管辖柜台：92个</div>
+          </div>
+          <span class="brand-status" style="background:rgba(245,34,45,0.1);color:#F5222D;">● 核心竞品</span>
+          <div class="brand-actions">
+            <button class="action-btn edit" onclick="showToast('正在编辑...')">编辑</button>
+          </div>
+        </div>
+        
+        <div class="brand-card">
+          <div class="brand-logo" style="background: linear-gradient(135deg, #FA8C16, #FADB14);">🍀</div>
+          <div class="brand-info">
+            <div class="brand-name">古驰 Gucci</div>
+            <div class="brand-name-en">GUCCI</div>
+            <div class="brand-meta">开云集团 · 管辖柜台：68个</div>
+          </div>
+          <span class="brand-status" style="background:rgba(140,140,140,0.1);color:#8C8C8C;">○ 普通竞品</span>
+          <div class="brand-actions">
+            <button class="action-btn edit" onclick="showToast('正在编辑...')">编辑</button>
+          </div>
+        </div>
+        
+        <div class="brand-card">
+          <div class="brand-logo" style="background: linear-gradient(135deg, #EB2F96, #F759AB);">🐴</div>
+          <div class="brand-info">
+            <div class="brand-name">爱马仕 Hermès</div>
+            <div class="brand-name-en">HERMÈS</div>
+            <div class="brand-meta">爱马仕集团 · 管辖柜台：52个</div>
+          </div>
+          <span class="brand-status" style="background:rgba(245,34,45,0.1);color:#F5222D;">● 核心竞品</span>
+          <div class="brand-actions">
+            <button class="action-btn edit" onclick="showToast('正在编辑...')">编辑</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="toast" id="toast"></div>
+  
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+  </script>
+</body>
+</html>

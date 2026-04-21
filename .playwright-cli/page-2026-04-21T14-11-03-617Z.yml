@@ -1,0 +1,104 @@
+- generic [ref=e2]:
+  - generic [ref=e6]:
+    - generic [ref=e115]:
+      - img [ref=e117]
+      - generic [ref=e8]: 竞品上报系统
+    - generic [ref=e9]:
+      - img [ref=e118]
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - generic [ref=e13]: Alice
+          - generic [ref=e14]: 雅诗兰黛 · 区域经理
+        - generic [ref=e15]: 浙江省 杭州市
+    - generic [ref=e16]:
+      - img [ref=e17]
+      - generic [ref=e20]: 您有3条数据上报等待审批，有3个上报异常
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - generic [ref=e24]: 本月审批情况
+        - generic [ref=e25]: 65%
+      - generic [ref=e26]: 已审批12条，待审批3条
+    - generic [ref=e28]: 快捷操作
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - img [ref=e32]
+        - generic [ref=e35]: 审批工作台
+      - generic [ref=e36]:
+        - img [ref=e38]
+        - generic [ref=e39]: 数据报表
+    - generic [ref=e40]:
+      - generic [ref=e42]: 待审批
+      - generic [ref=e44]: 已审批
+    - generic [ref=e45]:
+      - generic:
+        - generic: 浙江省
+        - img
+      - generic:
+        - generic: 杭州市
+        - img
+      - generic:
+        - generic: 万象城购物中心
+        - img
+    - generic:
+      - generic:
+        - img
+        - generic: 2025年8月22日
+        - img
+        - generic: "-"
+        - generic: 8月31日
+        - img
+      - generic:
+        - generic: 筛选
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - generic [ref=e49]:
+            - generic [ref=e50]: 日数据上报
+            - generic [ref=e51]: "|"
+            - generic [ref=e52]: 8月22日
+          - generic [ref=e54]: 待审批
+        - generic [ref=e55]:
+          - img [ref=e56]
+          - generic [ref=e59]: 雅诗兰黛 · 杭州万象城店
+        - generic [ref=e60]:
+          - img [ref=e61]
+          - generic [ref=e64]: 米晓妮
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - generic [ref=e68]: 日数据修改
+            - generic [ref=e69]: "|"
+            - generic [ref=e70]: 8月22日
+          - generic [ref=e72]: 待审批
+        - generic [ref=e73]:
+          - img [ref=e74]
+          - generic [ref=e77]: 雅诗兰黛 · 庆春银泰
+        - generic [ref=e78]:
+          - img [ref=e79]
+          - generic [ref=e82]: Amy
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - generic [ref=e86]: 竞品促销上报
+            - generic [ref=e87]: "|"
+            - generic [ref=e88]: 8月22日
+          - generic [ref=e90]: 待审批
+        - generic [ref=e91]:
+          - img [ref=e92]
+          - generic [ref=e95]: 雅诗兰黛 · 阪神阪急
+        - generic [ref=e96]:
+          - img [ref=e97]
+          - generic [ref=e100]: Ella
+  - generic [ref=e102]:
+    - link "上报审批" [ref=e103]:
+      - /url: javascript:;
+      - paragraph [ref=e105]: 上报审批
+    - link "异常柜台" [ref=e106]:
+      - /url: javascript:;
+      - paragraph [ref=e108]: 异常柜台
+    - link "数据报表" [ref=e109]:
+      - /url: javascript:;
+      - paragraph [ref=e111]: 数据报表
+    - link "我的" [ref=e112]:
+      - /url: javascript:;
+      - paragraph [ref=e114]: 我的

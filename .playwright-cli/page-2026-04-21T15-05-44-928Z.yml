@@ -1,0 +1,49 @@
+- generic [ref=e2]:
+  - generic [ref=e6]:
+    - generic [ref=e7]:
+      - img [ref=e9]
+      - generic [ref=e10]: 张主管
+      - generic [ref=e11]: Area Coordinator
+      - generic [ref=e12]: 浙江省杭州市
+      - generic [ref=e13]: "工号: AC-001"
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]: "12"
+        - generic [ref=e17]: 已审批
+      - generic [ref=e19]:
+        - generic [ref=e20]: "2"
+        - generic [ref=e21]: 待审批
+      - generic [ref=e23]:
+        - generic [ref=e24]: "3"
+        - generic [ref=e25]: 异常
+    - generic [ref=e26]:
+      - generic [ref=e27]: 功能服务
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - img [ref=e31]
+          - generic [ref=e34]:
+            - generic [ref=e35]: 我的审批
+            - generic [ref=e36]: 查看历史审批记录
+          - generic [ref=e37]: ›
+        - generic [ref=e38]:
+          - img [ref=e40]
+          - generic [ref=e42]:
+            - generic [ref=e43]: 异常监控
+            - generic [ref=e44]: 异常柜台管理
+          - generic [ref=e45]: ›
+    - generic [ref=e46]:
+      - generic [ref=e47]: CSP 审批端 v1.0.0
+      - generic [ref=e48]: 2026 竞品情报系统
+  - generic [ref=e50]:
+    - link "上报审批" [ref=e51]:
+      - /url: javascript:;
+      - paragraph [ref=e53]: 上报审批
+    - link "异常柜台" [ref=e54]:
+      - /url: javascript:;
+      - paragraph [ref=e56]: 异常柜台
+    - link "数据报表" [ref=e57]:
+      - /url: javascript:;
+      - paragraph [ref=e59]: 数据报表
+    - link "我的" [ref=e60]:
+      - /url: javascript:;
+      - paragraph [ref=e62]: 我的

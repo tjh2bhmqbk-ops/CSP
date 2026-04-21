@@ -1,0 +1,62 @@
+@import '@/styles/variables.scss';
+
+.date-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx $spacing-lg;
+  background-color: #FFFFFF;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-sm;
+  border: 1px solid rgba(0,0,0,0.02);
+
+  &:active { background: #FAFAFA; }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+  }
+
+  &__icon { display: flex; align-items: center; }
+
+  &__label {
+    font-size: $font-size-base;
+    color: $csp-text-secondary;
+    font-weight: $font-weight-medium;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 10rpx;
+  }
+
+  &__value {
+    font-size: $font-size-md;
+    color: $csp-text-primary;
+    font-weight: $font-weight-bold;
+
+    &--today { color: $primary-start; }
+    &--past { color: $csp-text-secondary; font-weight: $font-weight-medium; }
+  }
+
+  &__badge {
+    font-size: $font-size-xs;
+    line-height: 32rpx;
+    padding: 0 14rpx;
+    border-radius: $radius-full;
+    background-color: #EBF5FF;
+    color: $primary-start;
+    font-weight: $font-weight-bold;
+
+    &--past {
+      background-color: #F5F5F5;
+      color: $csp-text-placeholder;
+      font-weight: $font-weight-normal;
+    }
+  }
+
+  &__arrow { margin-left: 6rpx; }
+}

@@ -1,0 +1,71 @@
+@import './styles/variables.scss';
+
+// 页面样式
+@import './pages/index/index.scss';
+@import './pages/approval-workbench/index.scss';
+@import './pages/approval-detail/index.scss';
+@import './pages/abnormal-counter/index.scss';
+@import './pages/data-report/index.scss';
+@import './pages/profile/index.scss';
+
+page {
+  font-family: $font-family;
+  font-size: $font-size-base;
+  color: $csp-text-primary;
+  background-color: $csp-bg;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+view,
+text,
+input,
+textarea,
+button {
+  box-sizing: border-box;
+}
+
+// 全局卡片样式
+.card {
+  background-color: $csp-card-bg;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-md;
+}
+
+// 安全区域底部占位
+.safe-bottom {
+  padding-bottom: calc($safe-area-bottom + 32rpx);
+}
+
+// 状态标签样式
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 10rpx 28rpx;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+
+  &.--pending {
+    color: $status-pending;
+    background-color: $status-pending-bg;
+  }
+
+  &.--approved {
+    color: $status-approved;
+    background-color: $status-approved-bg;
+  }
+
+  &.--rejected {
+    color: $status-rejected;
+    background-color: $status-rejected-bg;
+  }
+}
+
+// 页面通用容器
+.page-container {
+  min-height: 100vh;
+  padding: $spacing-lg;
+  padding-bottom: calc($tab-bar-height + $spacing-lg + $safe-area-bottom);
+}

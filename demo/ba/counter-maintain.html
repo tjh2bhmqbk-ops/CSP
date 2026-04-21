@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>竞品柜台信息维护 - CSP竞品情报系统</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    body { background: #f5f5f5; }
+    .mini-app { padding-bottom: 100px; }
+    
+    .page-header {
+      background: linear-gradient(135deg, #1E3A5F 0%, #2D5A8E 100%);
+      color: #fff;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .back-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    .page-title { flex: 1; font-size: 17px; font-weight: 600; }
+    
+    .tip-card {
+      background: rgba(24, 144, 255, 0.1);
+      margin: 16px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #1890FF;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    
+    .tip-icon { font-size: 16px; }
+    
+    .counter-list {
+      padding: 0 16px;
+    }
+    
+    .counter-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    
+    .counter-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    
+    .counter-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .badge {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    
+    .badge.core { background: #F5222D; }
+    .badge.normal { background: #8C8C8C; }
+    
+    .counter-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .counter-actions {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .action-btn {
+      padding: 4px 10px;
+      font-size: 11px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .action-btn.new {
+      background: rgba(245, 34, 45, 0.1);
+      color: #F5222D;
+    }
+    
+    .action-btn.renovate {
+      background: rgba(250, 173, 20, 0.1);
+      color: #FAAD14;
+    }
+    
+    .action-btn.closed {
+      background: rgba(140, 140, 140, 0.1);
+      color: #8C8C8C;
+    }
+    
+    .counter-info {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 12px;
+    }
+    
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    
+    .info-row:last-child { margin-bottom: 0; }
+    
+    .info-label { color: #666; }
+    .info-value { color: #333; font-weight: 500; }
+    
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    
+    .status-dot.normal { background: #52C41A; }
+    .status-dot.renovate { background: #FAAD14; }
+    .status-dot.closed { background: #8C8C8C; }
+    
+    .add-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 64px);
+      max-width: 311px;
+      height: 48px;
+      background: linear-gradient(135deg, #1E3A5F 0%, #2D5A8E 100%);
+      color: #fff;
+      border-radius: 24px;
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(30, 58, 95, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    /* 品牌选择弹窗 */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+    
+    .modal-overlay.show { display: flex; }
+    
+    .modal {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-radius: 16px 16px 0 0;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      z-index: 101;
+      animation: slideUp 0.3s ease;
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .modal-close {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #999;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+      display: block;
+    }
+    
+    .form-select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fff;
+    }
+    
+    .brand-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .brand-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .brand-item:hover {
+      background: #e8f0fe;
+    }
+    
+    .brand-item.selected {
+      background: rgba(30, 58, 95, 0.1);
+      border: 1px solid #1E3A5F;
+    }
+    
+    .brand-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    
+    .brand-item.selected .brand-checkbox {
+      background: #1E3A5F;
+      border-color: #1E3A5F;
+      color: #fff;
+    }
+    
+    .brand-logo-small {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #1E3A5F 0%, #2D5A8E 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-right: 12px;
+    }
+    
+    .brand-info {
+      flex: 1;
+    }
+    
+    .brand-name-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .brand-group-text {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+    
+    .modal-footer {
+      padding: 16px 20px;
+      border-top: 1px solid #eee;
+    }
+    
+    .confirm-btn {
+      width: 100%;
+      height: 48px;
+      background: linear-gradient(135deg, #1E3A5F 0%, #2D5A8E 100%);
+      color: #fff;
+      border-radius: 24px;
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .empty-tip {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+      font-size: 14px;
+    }
+    
+    .toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 1000;
+      display: none;
+    }
+    
+    .toast.show { display: block; animation: fadeIn 0.3s ease; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+</head>
+<body>
+  <div class="mini-app">
+    <div class="page-header">
+      <a href="index.html" class="back-btn">‹</a>
+      <div class="page-title">竞品柜台信息维护</div>
+    </div>
+    
+    <div class="tip-card">
+      <span class="tip-icon">💡</span>
+      <span>发现竞品柜台状态变化（开店/装修/闭店）时，请及时上报更新信息。</span>
+    </div>
+    
+    <div class="counter-list">
+      <!-- Dior -->
+      <div class="counter-card">
+        <div class="counter-header">
+          <div class="counter-brand">
+            <span class="badge core"></span>
+            <span class="counter-name">Dior 迪奥</span>
+          </div>
+          <div class="counter-actions">
+            <button class="action-btn new" onclick="reportStatus('Dior', 'new')">新开</button>
+            <button class="action-btn renovate" onclick="reportStatus('Dior', 'renovate')">装修</button>
+            <button class="action-btn closed" onclick="reportStatus('Dior', 'closed')">闭店</button>
+          </div>
+        </div>
+        <div class="counter-info">
+          <div class="info-row">
+            <span class="info-label">所在商场</span>
+            <span class="info-value">上海新天地</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">当前状态</span>
+            <span class="info-value">
+              <span class="status-indicator">
+                <span class="status-dot normal"></span>
+                营业中
+              </span>
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">最后更新</span>
+            <span class="info-value">2026-04-15</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- LV -->
+      <div class="counter-card">
+        <div class="counter-header">
+          <div class="counter-brand">
+            <span class="badge core"></span>
+            <span class="counter-name">Louis Vuitton</span>
+          </div>
+          <div class="counter-actions">
+            <button class="action-btn new" onclick="reportStatus('LV', 'new')">新开</button>
+            <button class="action-btn renovate" onclick="reportStatus('LV', 'renovate')">装修</button>
+            <button class="action-btn closed" onclick="reportStatus('LV', 'closed')">闭店</button>
+          </div>
+        </div>
+        <div class="counter-info">
+          <div class="info-row">
+            <span class="info-label">所在商场</span>
+            <span class="info-value">上海恒隆广场</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">当前状态</span>
+            <span class="info-value">
+              <span class="status-indicator">
+                <span class="status-dot renovate"></span>
+                装修中
+              </span>
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">最后更新</span>
+            <span class="info-value">2026-04-19</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Gucci -->
+      <div class="counter-card">
+        <div class="counter-header">
+          <div class="counter-brand">
+            <span class="badge normal"></span>
+            <span class="counter-name">Gucci 古驰</span>
+          </div>
+          <div class="counter-actions">
+            <button class="action-btn new" onclick="reportStatus('Gucci', 'new')">新开</button>
+            <button class="action-btn renovate" onclick="reportStatus('Gucci', 'renovate')">装修</button>
+            <button class="action-btn closed" onclick="reportStatus('Gucci', 'closed')">闭店</button>
+          </div>
+        </div>
+        <div class="counter-info">
+          <div class="info-row">
+            <span class="info-label">所在商场</span>
+            <span class="info-value">北京国贸商城</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">当前状态</span>
+            <span class="info-value">
+              <span class="status-indicator">
+                <span class="status-dot closed"></span>
+                已闭店
+              </span>
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">最后更新</span>
+            <span class="info-value">2026-04-10</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Hermès -->
+      <div class="counter-card">
+        <div class="counter-header">
+          <div class="counter-brand">
+            <span class="badge core"></span>
+            <span class="counter-name">Hermès 爱马仕</span>
+          </div>
+          <div class="counter-actions">
+            <button class="action-btn new" onclick="reportStatus('Hermès', 'new')">新开</button>
+            <button class="action-btn renovate" onclick="reportStatus('Hermès', 'renovate')">装修</button>
+            <button class="action-btn closed" onclick="reportStatus('Hermès', 'closed')">闭店</button>
+          </div>
+        </div>
+        <div class="counter-info">
+          <div class="info-row">
+            <span class="info-label">所在商场</span>
+            <span class="info-value">深圳万象城</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">当前状态</span>
+            <span class="info-value">
+              <span class="status-indicator">
+                <span class="status-dot normal"></span>
+                营业中
+              </span>
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">最后更新</span>
+            <span class="info-value">2026-03-28</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <button class="add-btn" onclick="openAddModal()">
+      <span>+</span> 上报新竞品柜台
+    </button>
+    
+    <!-- 添加竞品弹窗 -->
+    <div class="modal-overlay" id="addModal">
+      <div class="modal">
+        <div class="modal-header">
+          <span class="modal-title">添加竞品柜台</span>
+          <button class="modal-close" onclick="closeAddModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">选择商场</label>
+            <select class="form-select" id="mallSelect" onchange="onMallChange()">
+              <option value="">请选择商场</option>
+              <option value="shanghai-xintiandi">上海新天地</option>
+              <option value="shanghai-henglong">上海恒隆广场</option>
+              <option value="beijing-guomao">北京国贸商城</option>
+              <option value="shenzhen-wanxiang">深圳万象城</option>
+              <option value="chengdu-ifs">成都IFS</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">选择竞品品牌（可多选）</label>
+            <div class="brand-list" id="brandList">
+              <div class="empty-tip">请先选择商场</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="confirm-btn" onclick="confirmAddBrand()">确认添加</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+  </div>
+  
+  <script>
+    // 商场可选品牌数据
+    const mallBrands = {
+      'shanghai-xintiandi': [
+        { id: 'ysl', name: 'YSL 圣罗兰', group: '欧莱雅集团', logo: '💄' },
+        { id: 'giorgio', name: 'Giorgio Armani', group: '欧莱雅集团', logo: '👔' },
+        { id: 'givenchy', name: 'Givenchy 纪梵希', group: 'LVMH集团', logo: '🎀' },
+        { id: 'burberry', name: 'Burberry 巴宝莉', group: '独立品牌', logo: '🧥' },
+        { id: 'prada', name: 'Prada 普拉达', group: 'Prada集团', logo: '👜' }
+      ],
+      'shanghai-henglong': [
+        { id: 'celine', name: 'Celine 赛琳', group: 'LVMH集团', logo: '🕶️' },
+        { id: 'fendi', name: 'Fendi 芬迪', group: 'LVMH集团', logo: '🧸' },
+        { id: 'loewe', name: 'Loewe 罗意威', group: 'LVMH集团', logo: '🟤' },
+        { id: 'bottegaveneta', name: 'Bottega Veneta', group: '开云集团', logo: '🟢' }
+      ],
+      'beijing-guomao': [
+        { id: 'valentino', name: 'Valentino 华伦天奴', group: '独立品牌', logo: '❤️' },
+        { id: 'versace', name: 'Versace 范思哲', group: 'Capri集团', logo: '👗' },
+        { id: 'moschino', name: 'Moschino 莫斯奇诺', group: 'AEFFE集团', logo: '🎭' }
+      ],
+      'shenzhen-wanxiang': [
+        { id: 'balenciaga', name: 'Balenciaga 巴黎世家', group: '开云集团', logo: '👟' },
+        { id: 'alexandermcqueen', name: 'Alexander McQueen', group: '开云集团', logo: '🦋' },
+        { id: 'saintlaurent', name: 'Saint Laurent', group: '开云集团', logo: '⚫' }
+      ],
+      'chengdu-ifs': [
+        { id: 'moynat', name: 'Moynat 摩奈', group: 'LVMH集团', logo: '🟤' },
+        { id: 'rimowa', name: 'RIMOWA 日默瓦', group: 'LVMH集团', logo: '🧳' }
+      ]
+    };
+    
+    // 当前已添加的品牌
+    const addedBrands = ['dior', 'lv', 'gucci', 'hermes'];
+    let selectedBrands = [];
+    
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+    
+    function reportStatus(brand, status) {
+      const statusText = {new: '新开', renovate: '装修', closed: '闭店'}[status];
+      showToast(`✓ ${brand} ${statusText}已上报，等待审核`);
+    }
+    
+    function openAddModal() {
+      document.getElementById('addModal').classList.add('show');
+      document.getElementById('mallSelect').value = '';
+      document.getElementById('brandList').innerHTML = '<div class="empty-tip">请先选择商场</div>';
+      selectedBrands = [];
+    }
+    
+    function closeAddModal() {
+      document.getElementById('addModal').classList.remove('show');
+    }
+    
+    function onMallChange() {
+      const mallId = document.getElementById('mallSelect').value;
+      const brandListEl = document.getElementById('brandList');
+      
+      if (!mallId) {
+        brandListEl.innerHTML = '<div class="empty-tip">请先选择商场</div>';
+        return;
+      }
+      
+      const brands = mallBrands[mallId] || [];
+      const availableBrands = brands.filter(b => !addedBrands.includes(b.id));
+      
+      if (availableBrands.length === 0) {
+        brandListEl.innerHTML = '<div class="empty-tip">该商场暂无可添加的竞品品牌</div>';
+        return;
+      }
+      
+      brandListEl.innerHTML = availableBrands.map(brand => `
+        <div class="brand-item" data-id="${brand.id}" onclick="toggleBrand('${brand.id}')">
+          <div class="brand-checkbox"></div>
+          <div class="brand-logo-small">${brand.logo}</div>
+          <div class="brand-info">
+            <div class="brand-name-text">${brand.name}</div>
+            <div class="brand-group-text">${brand.group}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    function toggleBrand(brandId) {
+      const idx = selectedBrands.indexOf(brandId);
+      const item = document.querySelector(`.brand-item[data-id="${brandId}"]`);
+      
+      if (idx === -1) {
+        selectedBrands.push(brandId);
+        item.classList.add('selected');
+        item.querySelector('.brand-checkbox').innerHTML = '✓';
+      } else {
+        selectedBrands.splice(idx, 1);
+        item.classList.remove('selected');
+        item.querySelector('.brand-checkbox').innerHTML = '';
+      }
+    }
+    
+    function confirmAddBrand() {
+      const mallId = document.getElementById('mallSelect').value;
+      
+      if (!mallId) {
+        showToast('请选择商场');
+        return;
+      }
+      
+      if (selectedBrands.length === 0) {
+        showToast('请选择至少一个竞品品牌');
+        return;
+      }
+      
+      // 添加到已选列表
+      selectedBrands.forEach(id => addedBrands.push(id));
+      
+      const brands = mallBrands[mallId] || [];
+      const selectedNames = brands.filter(b => selectedBrands.includes(b.id)).map(b => b.name).join('、');
+      
+      showToast(`✓ 已添加 ${selectedNames}，等待审核`);
+      closeAddModal();
+    }
+    
+    // 点击遮罩关闭
+    document.getElementById('addModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeAddModal();
+      }
+    });
+  </script>
+</body>
+</html>

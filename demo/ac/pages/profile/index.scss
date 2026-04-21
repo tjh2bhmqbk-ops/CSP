@@ -1,0 +1,188 @@
+@import '../../styles/variables.scss';
+
+.profile-page {
+  min-height: 100vh;
+  background-color: $csp-bg;
+  padding-bottom: calc($tab-bar-height + $spacing-xl + $safe-area-bottom);
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 112rpx;
+  padding-bottom: 64rpx;
+  background: $header-gradient;
+}
+
+.profile-avatar {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  border: 6rpx solid rgba(255, 255, 255, 0.9);
+  box-shadow: $shadow-md;
+  margin-bottom: 28rpx;
+  background: $csp-bg;
+}
+
+.profile-name {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+  margin-bottom: 16rpx;
+}
+
+.profile-role {
+  font-size: $font-size-md;
+  color: $csp-text-secondary;
+  margin-bottom: 12rpx;
+}
+
+.profile-region {
+  font-size: $font-size-base;
+  color: $csp-text-secondary;
+  margin-bottom: 12rpx;
+}
+
+.profile-id {
+  font-size: $font-size-sm;
+  color: $csp-text-placeholder;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 8rpx 24rpx;
+  border-radius: $radius-full;
+}
+
+.stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: -40rpx 48rpx 56rpx;
+  padding: 40rpx 0;
+  background: $csp-card-bg;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  position: relative;
+  z-index: 10;
+}
+
+.stats-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.stats-val {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $primary-start;
+
+  &.--active {
+    color: $status-pending;
+  }
+}
+
+.stats-label {
+  font-size: $font-size-sm;
+  color: $csp-text-placeholder;
+}
+
+.stats-divider {
+  width: 2rpx;
+  height: 48rpx;
+  background-color: $csp-border-light;
+}
+
+.menu-section {
+  padding: 0 48rpx;
+}
+
+.menu-section__title {
+  display: block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  color: $csp-text-placeholder;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+  margin-bottom: 20rpx;
+}
+
+.menu-list {
+  background: $csp-card-bg;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 36rpx 32rpx;
+  border-bottom: 2rpx solid $csp-border-light;
+
+  &:active {
+    background: #FAFAFA;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.menu-item__icon {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 28rpx;
+  flex-shrink: 0;
+  background: $csp-bg;
+  color: $csp-text-primary;
+}
+
+.menu-item__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-item__title {
+  display: block;
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+}
+
+.menu-item__desc {
+  display: block;
+  font-size: $font-size-sm;
+  color: $csp-text-placeholder;
+  margin-top: 8rpx;
+}
+
+.menu-item__arrow {
+  font-size: 40rpx;
+  color: #CCC;
+  margin-left: 20rpx;
+  flex-shrink: 0;
+  font-weight: 300;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 72rpx 0;
+  gap: 12rpx;
+}
+
+.footer-ver {
+  font-size: $font-size-xs;
+  color: $csp-text-placeholder;
+}
+
+.footer-copy {
+  font-size: $font-size-xs;
+  color: #DDD;
+}

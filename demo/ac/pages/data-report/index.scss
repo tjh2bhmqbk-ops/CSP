@@ -1,0 +1,174 @@
+@import '../../styles/variables.scss';
+
+.report-page {
+  min-height: 100vh;
+  background-color: $csp-bg;
+  padding-bottom: calc($tab-bar-height + $spacing-xl + $safe-area-bottom);
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 112rpx 48rpx 48rpx;
+  background: $header-gradient;
+
+  .page-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $csp-text-primary;
+  }
+}
+
+.type-switch {
+  display: flex;
+  margin: 32rpx 48rpx;
+  background: $csp-card-bg;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6rpx;
+    background: $csp-border-light;
+  }
+}
+
+.type-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx 0;
+  position: relative;
+  z-index: 1;
+
+  &.--active {
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 20%;
+      right: 20%;
+      height: 6rpx;
+      background: $primary-start;
+      border-radius: 4rpx 4rpx 0 0;
+    }
+
+    text {
+      color: $csp-text-primary;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  text {
+    font-size: $font-size-md;
+    color: $csp-text-secondary;
+  }
+}
+
+// ====== 日期/月份筛选 ======
+.date-picker-bar {
+  margin: 0 48rpx 32rpx;
+}
+
+.date-picker-item {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 32rpx 40rpx;
+  background: $csp-card-bg;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+}
+
+.date-picker-icon {
+  width: 48rpx;
+  height: 48rpx;
+  flex-shrink: 0;
+}
+
+.date-picker-text {
+  flex: 1;
+  font-size: $font-size-base;
+  color: $csp-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.date-picker-arrow {
+  width: 36rpx;
+  height: 36rpx;
+  flex-shrink: 0;
+}
+
+.report-content {
+  padding: 0 48rpx;
+}
+
+.report-table {
+  background: $csp-card-bg;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+}
+
+.table-header {
+  display: flex;
+  background: $csp-bg;
+  padding: 40rpx 32rpx;
+
+  .th {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $csp-text-secondary;
+    text-align: center;
+
+    &.--date { width: 200rpx; }
+    &.--counter { flex: 1; }
+    &.--amount { width: 220rpx; }
+    &.--status { width: 160rpx; }
+  }
+}
+
+.table-row {
+  display: flex;
+  align-items: center;
+  padding: 40rpx 32rpx;
+  border-top: 2rpx solid $csp-border-light;
+
+  .td {
+    font-size: $font-size-sm;
+    color: $csp-text-primary;
+    text-align: center;
+
+    &.--date { width: 200rpx; }
+    &.--counter { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    &.--amount { width: 220rpx; }
+    &.--status { width: 160rpx; }
+  }
+}
+
+.status-tag {
+  display: inline-flex;
+  padding: 10rpx 24rpx;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 160rpx 0;
+}
+
+.empty-text {
+  font-size: $font-size-base;
+  color: $csp-text-placeholder;
+}

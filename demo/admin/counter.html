@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>柜台管理 - CSP竞品情报系统</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    body { margin: 0; background: #F5F5F5; }
+    .admin-layout { display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 220px; background: linear-gradient(180deg, #1E3A5F 0%, #0F1F33 100%); color: #fff; padding: 0; flex-shrink: 0; position: fixed; height: 100vh; }
+    .sidebar-logo { padding: 24px 20px; font-size: 18px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-nav { padding: 16px 0; }
+    .nav-section { margin-bottom: 8px; }
+    .nav-section-title { padding: 8px 20px; font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+    .sidebar-item { display: flex; align-items: center; padding: 12px 20px; color: rgba(255,255,255,0.7); font-size: 14px; text-decoration: none; }
+    .sidebar-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .sidebar-item.active { background: rgba(255,255,255,0.15); color: #fff; border-left: 3px solid #fff; }
+    .sidebar-icon { width: 20px; margin-right: 12px; text-align: center; }
+    .admin-main { flex: 1; margin-left: 220px; }
+    .admin-content { padding: 24px; }
+    .page-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #333; display: flex; justify-content: space-between; align-items: center; }
+    .add-btn { background: #1E3A5F; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 14px; border: none; cursor: pointer; }
+    .filter-bar { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; gap: 12px; align-items: center; }
+    .filter-item { display: flex; align-items: center; gap: 8px; }
+    .filter-label { font-size: 13px; color: #666; }
+    .filter-select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; }
+    .table-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .table-header { display: flex; background: #fafafa; padding: 14px 20px; font-weight: 600; font-size: 13px; color: #666; border-bottom: 1px solid #eee; }
+    .table-row { display: flex; padding: 14px 20px; border-bottom: 1px solid #f0f0f0; align-items: center; font-size: 14px; }
+    .table-row:last-child { border-bottom: none; }
+    .table-cell { flex: 1; }
+    .table-cell.small { flex: 0.5; }
+    .status-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 4px; font-size: 12px; }
+    .status-tag.normal { background: rgba(82,196,26,0.1); color: #52C41A; }
+    .status-tag.renovate { background: rgba(250,173,20,0.1); color: #FAAD14; }
+    .status-tag.closed { background: rgba(140,140,140,0.1); color: #8C8C8C; }
+    .comp-badge { margin-right: 4px; }
+    .comp-badge.core { color: #F5222D; }
+    .comp-badge.normal { color: #8C8C8C; }
+    .action-btn { padding: 6px 12px; border-radius: 4px; font-size: 12px; border: none; cursor: pointer; background: rgba(30,58,95,0.08); color: #1E3A5F; }
+    .toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,0.75); color: #fff; padding: 16px 32px; border-radius: 8px; font-size: 14px; z-index: 1000; display: none; }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="sidebar-logo">📊 CSP竞品情报</div>
+      <div class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">数据中心</div>
+          <a href="index.html" class="sidebar-item"><span class="sidebar-icon">🏠</span><span>首页概览</span></a>
+          <a href="alert-center.html" class="sidebar-item"><span class="sidebar-icon">⚠️</span><span>异常预警</span></a>
+          <a href="reports.html" class="sidebar-item"><span class="sidebar-icon">📈</span><span>数据报表</span></a>
+          <a href="review-admin.html" class="sidebar-item"><span class="sidebar-icon">✅</span><span>修改审批</span></a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">基础管理</div>
+          <a href="brand.html" class="sidebar-item"><span class="sidebar-icon">🏢</span><span>品牌管理</span></a>
+          <a href="competitor.html" class="sidebar-item"><span class="sidebar-icon">⚔️</span><span>竞品关系</span></a>
+          <a href="region.html" class="sidebar-item"><span class="sidebar-icon">📍</span><span>区域/城市</span></a>
+          <a href="#" class="sidebar-item active"><span class="sidebar-icon">🏪</span><span>柜台管理</span></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="admin-main">
+      <div class="admin-content">
+        <div class="page-title">
+          <span>🏪 柜台管理</span>
+          <button class="add-btn" onclick="showToast('请在后台添加柜台')">+ 新增柜台</button>
+        </div>
+        
+        <div class="filter-bar">
+          <div class="filter-item">
+            <span class="filter-label">区域</span>
+            <select class="filter-select"><option>全部</option><option>华东</option><option>华北</option><option>华南</option></select>
+          </div>
+          <div class="filter-item">
+            <span class="filter-label">城市</span>
+            <select class="filter-select"><option>全部</option><option>上海</option><option>北京</option><option>深圳</option></select>
+          </div>
+          <div class="filter-item">
+            <span class="filter-label">状态</span>
+            <select class="filter-select"><option>全部</option><option>营业中</option><option>装修中</option><option>已闭店</option></select>
+          </div>
+        </div>
+        
+        <div class="table-card">
+          <div class="table-header">
+            <div class="table-cell small">品牌</div>
+            <div class="table-cell">商场</div>
+            <div class="table-cell">城市</div>
+            <div class="table-cell">状态</div>
+            <div class="table-cell small">操作</div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="comp-badge core">●</span>Chanel</div>
+            <div class="table-cell">上海新天地</div>
+            <div class="table-cell">上海</div>
+            <div class="table-cell"><span class="status-tag normal">● 营业中</span></div>
+            <div class="table-cell"><button class="action-btn" onclick="showToast('编辑柜台')">编辑</button></div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="comp-badge core">●</span>Dior</div>
+            <div class="table-cell">上海新天地</div>
+            <div class="table-cell">上海</div>
+            <div class="table-cell"><span class="status-tag normal">● 营业中</span></div>
+            <div class="table-cell"><button class="action-btn" onclick="showToast('编辑柜台')">编辑</button></div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="comp-badge core">●</span>Louis Vuitton</div>
+            <div class="table-cell">上海恒隆广场</div>
+            <div class="table-cell">上海</div>
+            <div class="table-cell"><span class="status-tag renovate">🔨 装修中</span></div>
+            <div class="table-cell"><button class="action-btn" onclick="showToast('编辑柜台')">编辑</button></div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="comp-badge normal">○</span>Gucci</div>
+            <div class="table-cell">北京国贸商城</div>
+            <div class="table-cell">北京</div>
+            <div class="table-cell"><span class="status-tag closed">○ 已闭店</span></div>
+            <div class="table-cell"><button class="action-btn" onclick="showToast('编辑柜台')">编辑</button></div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="comp-badge core">●</span>Hermès</div>
+            <div class="table-cell">深圳万象城</div>
+            <div class="table-cell">深圳</div>
+            <div class="table-cell"><span class="status-tag normal">● 营业中</span></div>
+            <div class="table-cell"><button class="action-btn" onclick="showToast('编辑柜台')">编辑</button></div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="comp-badge normal">○</span>Cartier</div>
+            <div class="table-cell">成都IFS</div>
+            <div class="table-cell">成都</div>
+            <div class="table-cell"><span class="status-tag normal">● 营业中</span></div>
+            <div class="table-cell"><button class="action-btn" onclick="showToast('编辑柜台')">编辑</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="toast" id="toast"></div>
+  
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+  </script>
+</body>
+</html>

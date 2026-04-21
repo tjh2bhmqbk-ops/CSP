@@ -1,0 +1,205 @@
+@import '../../styles/variables.scss';
+
+.workbench-page {
+  min-height: 100vh;
+  background-color: $csp-bg;
+}
+
+.page-header {
+  padding: 112rpx 48rpx 48rpx;
+  background: $header-gradient;
+
+  .page-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $csp-text-primary;
+  }
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 36rpx 48rpx;
+  background: $csp-card-bg;
+  border-bottom: 2rpx solid $csp-border-light;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 28rpx 36rpx;
+  background: $csp-bg;
+  border-radius: $radius-md;
+
+  text {
+    font-size: $font-size-sm;
+    color: $csp-text-secondary;
+  }
+
+  .filter-arrow {
+    font-size: $font-size-xs;
+    color: $csp-text-placeholder;
+  }
+}
+
+.tab-bar {
+  display: flex;
+  background: $csp-card-bg;
+  border-bottom: 2rpx solid $csp-border-light;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36rpx 0;
+  position: relative;
+
+  &.--active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    right: 20%;
+    height: 6rpx;
+    background: $primary-start;
+    border-radius: 4rpx;
+  }
+
+  &.--active .tab-text {
+    color: $csp-text-primary;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.tab-text {
+  font-size: $font-size-md;
+  color: $csp-text-secondary;
+}
+
+.tab-count {
+  font-size: $font-size-xs;
+  color: $csp-text-placeholder;
+  margin-top: 8rpx;
+}
+
+.batch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40rpx 48rpx;
+  background: $csp-card-bg;
+  border-bottom: 2rpx solid $csp-border-light;
+  margin: 0 48rpx;
+  border-radius: $radius-lg $radius-lg 0 0;
+}
+
+.batch-select {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 28rpx 36rpx;
+  background: $csp-bg;
+  border-radius: $radius-md;
+}
+
+.batch-text {
+  font-size: $font-size-base;
+  color: $csp-text-primary;
+  font-weight: $font-weight-bold;
+}
+
+.batch-actions {
+  display: flex;
+  gap: 28rpx;
+}
+
+.batch-btn {
+  padding: 28rpx 52rpx;
+  border-radius: $radius-md;
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+
+  &.--approve {
+    background: $status-approved;
+    color: #FFFFFF;
+  }
+
+  &.--reject {
+    background: $status-rejected;
+    color: #FFFFFF;
+  }
+}
+
+.workbench-list {
+  padding: 32rpx 48rpx;
+}
+
+.workbench-item {
+  display: flex;
+  align-items: center;
+  background: $csp-card-bg;
+  border-radius: $radius-lg;
+  margin-bottom: 32rpx;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+}
+
+.item-checkbox {
+  padding: 0 20rpx 0 32rpx;
+}
+
+.item-content {
+  flex: 1;
+  padding: 40rpx 32rpx;
+}
+
+.item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.item-month {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+}
+
+.item-counter {
+  font-size: $font-size-base;
+  color: $csp-text-secondary;
+  margin-bottom: 20rpx;
+}
+
+.item-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item-submitter {
+  font-size: $font-size-xs;
+  color: $csp-text-placeholder;
+}
+
+.item-time {
+  font-size: $font-size-xs;
+  color: $csp-text-placeholder;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 160rpx 0;
+}
+
+.empty-text {
+  font-size: $font-size-sm;
+  color: $csp-text-placeholder;
+}

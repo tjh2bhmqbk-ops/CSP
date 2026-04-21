@@ -1,0 +1,84 @@
+// ============================================
+// CSP AC端设计令牌 (Design Tokens)
+// 复用BA端设计规范 — 黑白灰配色 + 思源黑体
+// ============================================
+
+// --- 颜色系统 ---
+$csp-bg: #F5F5F5;
+$csp-card-bg: #FFFFFF;
+$csp-text-primary: #333333;
+$csp-text-secondary: #999999;
+$csp-text-placeholder: #BBBBBB;
+$csp-border-color: #EEEEEE;
+$csp-border-light: #F0F0F0;
+
+// 状态颜色
+$status-pending: #FAAD14;
+$status-pending-bg: #FFF7E6;
+$status-approved: #52C41A;
+$status-approved-bg: #F6FFED;
+$status-rejected: #F5222D;
+$status-rejected-bg: #FFF2F0;
+
+// 主题色（渐变蓝）
+$primary-start: #1E3A5F;
+$primary-end: #2D5A8E;
+$primary-gradient: linear-gradient(135deg, $primary-start, $primary-end);
+$header-bg-start: #B8D4E8;
+$header-bg-end: #E8F2F8;
+$header-gradient: linear-gradient(180deg, $header-bg-start, $header-bg-end);
+
+// 按钮颜色
+$btn-draft-bg: #F5F5F5;
+$btn-draft-text: #666666;
+$btn-primary-bg: $primary-gradient;
+$btn-primary-text: #FFFFFF;
+$btn-outline-border: #DDDDDD;
+$btn-outline-text: #666666;
+
+// --- 圆角 ---
+$radius-sm: 8rpx;
+$radius-md: 16rpx;
+$radius-lg: 24rpx;
+$radius-xl: 32rpx;
+$radius-full: 19998rpx;
+
+// --- 阴影 ---
+$shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+$shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+
+// --- 字体 ---
+$font-family: 'Source Han Sans CN', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+// AC端 H5 已统一使用 rpx，Taro H5 会自动按屏幕宽度换算为 rem
+// 字体直接对齐 BA 端原始 rpx 值，两端在相同设备上视觉效果完全一致
+$font-size-xs: 22rpx;     // 标注/时间
+$font-size-sm: 26rpx;     // 次要文字
+$font-size-base: 30rpx;   // 正文基准
+$font-size-md: 34rpx;     // 小标题/Tab
+$font-size-lg: 40rpx;     // 大标题
+$font-size-xl: 48rpx;     // 页面标题
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+
+// --- 间距 ---
+$spacing-xs: 8rpx;
+$spacing-sm: 16rpx;
+$spacing-md: 24rpx;
+$spacing-lg: 32rpx;
+$spacing-xl: 40rpx;
+$spacing-xxl: 48rpx;
+$spacing-3xl: 64rpx;
+
+// --- 布局 ---
+$page-max-width: 750rpx;
+$nav-height: 88rpx;
+$tab-bar-height: 100rpx;
+$safe-area-bottom: env(safe-area-inset-bottom);
+
+// --- 动画 ---
+$transition-fast: 150ms ease;
+$transition-base: 250ms ease;
+$transition-slow: 350ms ease;

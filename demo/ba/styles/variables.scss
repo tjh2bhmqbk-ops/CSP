@@ -1,0 +1,86 @@
+// ============================================
+// CSP 导购端设计令牌 (Design Tokens)
+// 基于 MasterGo 设计规范 — 黑白灰配色 + 思源黑体
+// ============================================
+
+// --- 颜色系统 ---
+$csp-bg: #F5F5F5;
+$csp-card-bg: #FFFFFF;
+$csp-text-primary: #333333;
+$csp-text-secondary: #999999;
+$csp-text-placeholder: #BBBBBB;
+$csp-border-color: #EEEEEE;
+$csp-border-light: #F0F0F0;
+
+// 状态颜色
+$status-pending: #FAAD14;
+$status-pending-bg: #FFF7E6;
+$status-approved: #52C41A;
+$status-approved-bg: #F6FFED;
+$status-rejected: #F5222D;
+$status-rejected-bg: #FFF2F0;
+
+// 主题色（渐变蓝）
+$primary-start: #1E3A5F;
+$primary-end: #2D5A8E;
+$primary-gradient: linear-gradient(135deg, $primary-start, $primary-end);
+$header-bg-start: #B8D4E8;
+$header-bg-end: #E8F2F8;
+$header-gradient: linear-gradient(180deg, $header-bg-start, $header-bg-end);
+
+// 按钮颜色
+$btn-draft-bg: #F5F5F5;
+$btn-draft-text: #666666;
+$btn-primary-bg: $primary-gradient;
+$btn-primary-text: #FFFFFF;
+$btn-outline-border: #DDDDDD;
+$btn-outline-text: #666666;
+
+// 核心竞品标识
+$core-badge: #F5222D;
+$normal-badge: #CCCCCC;
+
+// --- 圆角 ---
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-full: 9999px;
+
+// --- 阴影 ---
+$shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.04);
+$shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+// --- 字体 ---
+$font-family: 'Source Han Sans CN', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-size-xs: 22rpx;    // 11px → 适合标注文字
+$font-size-sm: 26rpx;    // 13px → 适合次要文字
+$font-size-base: 30rpx;  // 15px → 正文基准（小程序适配）
+$font-size-md: 34rpx;    // 17px → 标题
+$font-size-lg: 40rpx;    // 20px → 大标题
+$font-size-xl: 48rpx;    // 24px → 特大标题
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+
+// --- 间距 ---
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+$spacing-xl: 20px;
+$spacing-xxl: 24px;
+$spacing-3xl: 32px;
+
+// --- 布局 ---
+$page-max-width: 750rpx;
+$nav-height: 44px;
+$tab-bar-height: 50px;
+$safe-area-bottom: env(safe-area-inset-bottom);
+
+// --- 动画 ---
+$transition-fast: 150ms ease;
+$transition-base: 250ms ease;
+$transition-slow: 350ms ease;

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CSP竞品情报系统 - Demo入口</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background: linear-gradient(135deg, #1E3A5F 0%, #2D5A8E 50%, #4A7DB8 100%);
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .demo-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-top: 20px;
+    }
+
+    .demo-logo {
+      font-size: 56px;
+      margin-bottom: 16px;
+    }
+
+    .demo-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .demo-subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .section {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1E3A5F;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: #1E3A5F;
+      border-radius: 2px;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .role-card {
+      background: #f8f9fa;
+      border-radius: 16px;
+      padding: 24px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .role-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #1E3A5F;
+    }
+
+    .role-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(30, 58, 95, 0.15);
+      border-color: #1E3A5F;
+    }
+
+    .role-card.ba::before { background: #4CAF50; }
+    .role-card.ac::before { background: #FF9800; }
+    .role-card.admin::before { background: #9C27B0; }
+
+    .role-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .role-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .role-desc {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .role-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .feature-tag {
+      background: rgba(30, 58, 95, 0.08);
+      color: #1E3A5F;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+    }
+
+    .role-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .role-card.ba .role-badge { background: #E8F5E9; color: #2E7D32; }
+    .role-card.ac .role-badge { background: #FFF3E0; color: #E65100; }
+    .role-card.admin .role-badge { background: #F3E5F5; color: #7B1FA2; }
+
+    .info-box {
+      background: #FFF8E1;
+      border-left: 4px solid #FFC107;
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+
+    .info-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #F57C00;
+      margin-bottom: 8px;
+    }
+
+    .info-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .code-block {
+      background: #263238;
+      color: #aed581;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 12px;
+      margin-top: 10px;
+      overflow-x: auto;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: rgba(255,255,255,0.6);
+      font-size: 12px;
+    }
+
+    .permission-box {
+      background: #E8F5E9;
+      border-left: 4px solid #4CAF50;
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+
+    .permission-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2E7D32;
+      margin-bottom: 8px;
+    }
+
+    .permission-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .permission-item {
+      background: rgba(76, 175, 80, 0.1);
+      color: #2E7D32;
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .demo-title { font-size: 24px; }
+      .role-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="demo-header">
+      <div class="demo-logo">📊</div>
+      <h1 class="demo-title">CSP竞品情报系统</h1>
+      <p class="demo-subtitle">Commercial Spy Platform - 竞品数据采集与分析平台</p>
+    </div>
+
+    <!-- 小程序端 -->
+    <div class="section">
+      <h2 class="section-title">小程序端（Taro项目）</h2>
+      
+      <div class="info-box">
+        <div class="info-title">💡 启动说明</div>
+        <div class="info-text">
+          以下端为 Taro React 项目，需要先启动开发服务器才能访问：<br>
+          在对应目录执行 <code>npm install && npm run dev:h5</code>，然后点击卡片访问
+        </div>
+      </div>
+
+      <div class="role-grid">
+        <!-- 导购BA端 -->
+        <div class="role-card ba" onclick="visitTaro('ba')">
+          <div class="role-icon">🏪</div>
+          <div class="role-name">导购BA端</div>
+          <div class="role-desc">门店竞品数据上报（导购使用）</div>
+          <div class="role-features">
+            <span class="feature-tag">日报</span>
+            <span class="feature-tag">周报</span>
+            <span class="feature-tag">月报</span>
+            <span class="feature-tag">历史修改</span>
+          </div>
+          <span class="role-badge">Taro H5</span>
+        </div>
+
+        <!-- AC审批端 -->
+        <div class="role-card ac" onclick="visitTaro('ac')">
+          <div class="role-icon">✅</div>
+          <div class="role-name">AC审批端</div>
+          <div class="role-desc">月报审批与数据监控（主管使用）</div>
+          <div class="role-features">
+            <span class="feature-tag">审批中心</span>
+            <span class="feature-tag">异常柜台</span>
+            <span class="feature-tag">数据报表</span>
+            <span class="feature-tag">批量操作</span>
+          </div>
+          <span class="role-badge">Taro H5</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 管理端（合并后） -->
+    <div class="section">
+      <h2 class="section-title">Web管理端（静态页面）</h2>
+      
+      <div class="permission-box">
+        <div class="permission-title">🔐 权限说明（基于角色分配菜单）</div>
+        <div class="info-text">
+          统一的管理后台，根据登录用户的角色权限动态显示对应菜单：
+        </div>
+        <div class="permission-list">
+          <span class="permission-item">👔 店长/督导 - 数据审核、异常预警</span>
+          <span class="permission-item">💼 管理员 - 品牌管理、竞品关系、区域管理</span>
+          <span class="permission-item">📊 数据分析师 - 数据报表、竞品概览</span>
+        </div>
+      </div>
+
+      <div class="role-grid">
+        <!-- 管理端入口 -->
+        <div class="role-card admin" onclick="location.href='./admin/index.html'">
+          <div class="role-icon">💼</div>
+          <div class="role-name">管理端</div>
+          <div class="role-desc">统一后台管理系统（权限控制菜单）</div>
+          <div class="role-features">
+            <span class="feature-tag">数据报表</span>
+            <span class="feature-tag">异常预警</span>
+            <span class="feature-tag">品牌管理</span>
+            <span class="feature-tag">竞品关系</span>
+            <span class="feature-tag">区域管理</span>
+            <span class="feature-tag">权限管理</span>
+          </div>
+          <span class="role-badge">静态页面</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 启动命令参考 -->
+    <div class="section">
+      <h2 class="section-title">快速启动命令</h2>
+      <div class="info-text" style="margin-bottom: 16px; color: #666;">在终端中执行以下命令启动 Taro 项目：</div>
+      
+      <div style="display: grid; gap: 12px;">
+        <div>
+          <div style="font-size: 13px; color: #333; margin-bottom: 6px; font-weight: 500;">🏪 启动导购BA端（端口10086）：</div>
+          <div class="code-block">cd /Users/pingguo/CodeBuddy/CSP/demo/ba && npm run dev:h5</div>
+        </div>
+        <div>
+          <div style="font-size: 13px; color: #333; margin-bottom: 6px; font-weight: 500;">✅ 启动AC审批端（端口默认）：</div>
+          <div class="code-block">cd /Users/pingguo/CodeBuddy/CSP/demo/ac && npm run dev:h5</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>CSP Demo 演示版本 · 2026-04-21</p>
+    </div>
+  </div>
+
+  <script>
+    function visitTaro(project) {
+      const ports = {
+        'ba': '10086',
+        'ac': '10088'
+      };
+      const port = ports[project];
+      const url = `http://localhost:${port}`;
+      
+      // 尝试打开链接
+      fetch(url, { mode: 'no-cors' })
+        .then(() => {
+          window.open(url, '_blank');
+        })
+        .catch(() => {
+          alert(`请先启动 ${project.toUpperCase()} 端服务！\n\n执行命令：\ncd demo/${project} && npm run dev:h5`);
+        });
+      
+      // 同时尝试直接打开
+      setTimeout(() => {
+        window.open(url, '_blank');
+      }, 100);
+    }
+  </script>
+</body>
+</html>

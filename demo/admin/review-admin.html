@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>修改审批 - CSP竞品情报系统</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    body { margin: 0; background: #F5F5F5; }
+    .admin-layout { display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 220px; background: linear-gradient(180deg, #1E3A5F 0%, #0F1F33 100%); color: #fff; padding: 0; flex-shrink: 0; position: fixed; height: 100vh; }
+    .sidebar-logo { padding: 24px 20px; font-size: 18px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-nav { padding: 16px 0; }
+    .nav-section { margin-bottom: 8px; }
+    .nav-section-title { padding: 8px 20px; font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+    .sidebar-item { display: flex; align-items: center; padding: 12px 20px; color: rgba(255,255,255,0.7); font-size: 14px; text-decoration: none; }
+    .sidebar-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .sidebar-item.active { background: rgba(255,255,255,0.15); color: #fff; border-left: 3px solid #fff; }
+    .sidebar-icon { width: 20px; margin-right: 12px; text-align: center; }
+    .admin-main { flex: 1; margin-left: 220px; }
+    .admin-header { background: #fff; padding: 16px 24px; border-bottom: 1px solid #eee; }
+    .admin-brand-label { font-size: 13px; color: #666; margin-right: 8px; }
+    .admin-brand-select { padding: 8px 16px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+    .admin-content { padding: 24px; }
+    .page-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #333; }
+    .tab-bar { display: flex; gap: 12px; margin-bottom: 24px; }
+    .tab-item { padding: 12px 24px; background: #fff; border-radius: 8px; font-size: 14px; color: #666; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .tab-item.active { background: #1E3A5F; color: #fff; }
+    .review-card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .review-header { display: flex; justify-content: space-between; margin-bottom: 12px; }
+    .review-type { font-size: 12px; font-weight: 500; color: #1E3A5F; background: rgba(30,58,95,0.08); padding: 4px 10px; border-radius: 4px; }
+    .review-time { font-size: 12px; color: #999; }
+    .review-brand { font-size: 15px; font-weight: 500; color: #333; margin-bottom: 4px; }
+    .review-detail { font-size: 13px; color: #666; margin-bottom: 8px; }
+    .change-box { background: #f8f9fa; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+    .change-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; }
+    .change-label { color: #666; }
+    .change-old { color: #F5222D; text-decoration: line-through; }
+    .change-new { color: #52C41A; }
+    .review-actions { display: flex; gap: 10px; }
+    .action-btn { flex: 1; height: 40px; border-radius: 8px; font-size: 14px; border: none; cursor: pointer; }
+    .action-btn.approve { background: #52C41A; color: #fff; }
+    .action-btn.reject { background: #F5222D; color: #fff; }
+    .action-btn.view { background: #f5f5f5; color: #666; }
+    .toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,0.75); color: #fff; padding: 16px 32px; border-radius: 8px; font-size: 14px; z-index: 1000; display: none; }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="sidebar-logo">📊 CSP竞品情报</div>
+      <div class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">数据中心</div>
+          <a href="index.html" class="sidebar-item"><span class="sidebar-icon">🏠</span><span>首页概览</span></a>
+          <a href="alert-center.html" class="sidebar-item"><span class="sidebar-icon">⚠️</span><span>异常预警</span></a>
+          <a href="reports.html" class="sidebar-item"><span class="sidebar-icon">📈</span><span>数据报表</span></a>
+          <a href="#" class="sidebar-item active"><span class="sidebar-icon">✅</span><span>修改审批</span></a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">基础管理</div>
+          <a href="brand.html" class="sidebar-item"><span class="sidebar-icon">🏢</span><span>品牌管理</span></a>
+          <a href="competitor.html" class="sidebar-item"><span class="sidebar-icon">⚔️</span><span>竞品关系</span></a>
+          <a href="region.html" class="sidebar-item"><span class="sidebar-icon">📍</span><span>区域/城市</span></a>
+          <a href="counter.html" class="sidebar-item"><span class="sidebar-icon">🏪</span><span>柜台管理</span></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="admin-main">
+      <div class="admin-header">
+        <span class="admin-brand-label">当前品牌</span>
+        <select class="admin-brand-select"><option>Chanel</option><option>全部品牌</option></select>
+      </div>
+      
+      <div class="admin-content">
+        <h2 class="page-title">✅ 修改审批</h2>
+        
+        <div class="tab-bar">
+          <div class="tab-item active">日数据修改 <span style="background:rgba(255,255,255,0.2);padding:2px 6px;border-radius:8px;margin-left:4px;font-size:11px;">2</span></div>
+          <div class="tab-item">周数据修改</div>
+          <div class="tab-item">月数据修改</div>
+        </div>
+        
+        <div class="review-card">
+          <div class="review-header">
+            <span class="review-type">日数据修改</span>
+            <span class="review-time">04-20 14:30</span>
+          </div>
+          <div class="review-brand">Dior 迪奥 · 李美美</div>
+          <div class="review-detail">门店：上海新天地店 · 原数据：¥0 → 修改为：¥15,800</div>
+          <div class="change-box">
+            <div class="change-row">
+              <span class="change-label">修改前</span>
+              <span class="change-old">¥0</span>
+            </div>
+            <div class="change-row">
+              <span class="change-label">修改后</span>
+              <span class="change-new">¥15,800</span>
+            </div>
+          </div>
+          <div class="review-actions">
+            <button class="action-btn view">查看原数据</button>
+            <button class="action-btn approve" onclick="approve(this)">✓ 通过</button>
+            <button class="action-btn reject" onclick="reject()">✗ 驳回</button>
+          </div>
+        </div>
+        
+        <div class="review-card">
+          <div class="review-header">
+            <span class="review-type">日数据修改</span>
+            <span class="review-time">04-19 16:20</span>
+          </div>
+          <div class="review-brand">Hermès 爱马仕 · 王小明</div>
+          <div class="review-detail">门店：深圳万象城 · 原数据：¥42,600 → 修改为：¥28,600</div>
+          <div class="change-box">
+            <div class="change-row">
+              <span class="change-label">修改前</span>
+              <span class="change-old">¥42,600</span>
+            </div>
+            <div class="change-row">
+              <span class="change-label">修改后</span>
+              <span class="change-new">¥28,600</span>
+            </div>
+          </div>
+          <div class="review-actions">
+            <button class="action-btn view">查看原数据</button>
+            <button class="action-btn approve" onclick="approve(this)">✓ 通过</button>
+            <button class="action-btn reject" onclick="reject()">✗ 驳回</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="toast" id="toast"></div>
+  
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+    
+    function approve(btn) {
+      const card = btn.closest('.review-card');
+      card.style.opacity = '0.5';
+      card.style.pointerEvents = 'none';
+      showToast('✓ 已通过');
+    }
+    
+    function reject() { showToast('✗ 已驳回'); }
+    
+    document.querySelectorAll('.tab-item').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelector('.tab-item.active').classList.remove('active');
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

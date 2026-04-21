@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>日数据查看修改 - CSP竞品情报系统</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    body { background: #f5f5f5; }
+    .mini-app { padding-bottom: 20px; }
+    
+    .page-header {
+      background: linear-gradient(135deg, #1E3A5F 0%, #2D5A8E 100%);
+      color: #fff;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .back-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    .page-title { flex: 1; font-size: 17px; font-weight: 600; }
+    
+    .history-list {
+      padding: 16px;
+    }
+    
+    .history-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .history-date {
+      font-size: 15px;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .history-status {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 10px;
+    }
+    
+    .history-status.approved {
+      background: rgba(82, 196, 26, 0.1);
+      color: #52C41A;
+    }
+    
+    .history-status.pending {
+      background: rgba(250, 173, 20, 0.1);
+      color: #FAAD14;
+    }
+    
+    .history-status.rejected {
+      background: rgba(245, 34, 45, 0.1);
+      color: #F5222D;
+    }
+    
+    .history-data {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 12px;
+    }
+    
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 13px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .data-row:last-child { border-bottom: none; }
+    
+    .data-brand {
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .badge { width: 6px; height: 6px; border-radius: 50%; }
+    .badge.core { background: #F5222D; }
+    .badge.normal { background: #8C8C8C; }
+    
+    .data-value { color: #333; font-weight: 500; }
+    
+    .history-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    
+    .action-btn {
+      flex: 1;
+      height: 36px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .action-btn.view {
+      background: rgba(30, 58, 95, 0.08);
+      color: #1E3A5F;
+    }
+    
+    .action-btn.edit {
+      background: #1E3A5F;
+      color: #fff;
+    }
+    
+    .reject-reason {
+      background: rgba(245, 34, 45, 0.08);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #F5222D;
+    }
+    
+    .toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 1000;
+      display: none;
+    }
+    
+    .toast.show { display: block; animation: fadeIn 0.3s ease; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="mini-app">
+    <div class="page-header">
+      <a href="index.html" class="back-btn">‹</a>
+      <div class="page-title">日数据查看修改</div>
+    </div>
+    
+    <div class="history-list">
+      <!-- 待审核 -->
+      <div class="history-item">
+        <div class="history-header">
+          <span class="history-date">📅 2026年4月20日（今日）</span>
+          <span class="history-status pending">⏳ 待审核</span>
+        </div>
+        <div class="history-data">
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Dior</span>
+            <span class="data-value">¥15,800</span>
+          </div>
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Louis Vuitton</span>
+            <span class="data-value">¥0（装修中）</span>
+          </div>
+          <div class="data-row">
+            <span class="data-brand"><span class="badge normal"></span> Gucci</span>
+            <span class="data-value">¥12,300</span>
+          </div>
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Hermès</span>
+            <span class="data-value">¥35,600</span>
+          </div>
+        </div>
+        <div class="history-actions">
+          <button class="action-btn view">查看详情</button>
+          <button class="action-btn edit" onclick="editReport('2026-04-20')">修改</button>
+        </div>
+      </div>
+      
+      <!-- 已通过 -->
+      <div class="history-item">
+        <div class="history-header">
+          <span class="history-date">📅 2026年4月19日</span>
+          <span class="history-status approved">✓ 已通过</span>
+        </div>
+        <div class="history-data">
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Dior</span>
+            <span class="data-value">¥18,200</span>
+          </div>
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Louis Vuitton</span>
+            <span class="data-value">¥0（装修中）</span>
+          </div>
+          <div class="data-row">
+            <span class="data-brand"><span class="badge normal"></span> Gucci</span>
+            <span class="data-value">¥11,800</span>
+          </div>
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Hermès</span>
+            <span class="data-value">¥28,900</span>
+          </div>
+        </div>
+        <div class="history-actions">
+          <button class="action-btn view">查看详情</button>
+          <button class="action-btn edit" onclick="editReport('2026-04-19')">修改</button>
+        </div>
+      </div>
+      
+      <!-- 被打回 -->
+      <div class="history-item">
+        <div class="history-header">
+          <span class="history-date">📅 2026年4月18日</span>
+          <span class="history-status rejected">✗ 未通过</span>
+        </div>
+        <div class="history-data">
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Dior</span>
+            <span class="data-value">¥0</span>
+          </div>
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Louis Vuitton</span>
+            <span class="data-value">¥0（装修中）</span>
+          </div>
+        </div>
+        <div class="reject-reason">
+          ⚠️ 驳回原因：Dior数据异常，门店正常营业但未填写数据
+        </div>
+        <div class="history-actions">
+          <button class="action-btn view">查看详情</button>
+          <button class="action-btn edit" onclick="editReport('2026-04-18')">修改后重新提交</button>
+        </div>
+      </div>
+      
+      <!-- 已通过 -->
+      <div class="history-item">
+        <div class="history-header">
+          <span class="history-date">📅 2026年4月17日</span>
+          <span class="history-status approved">✓ 已通过</span>
+        </div>
+        <div class="history-data">
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Dior</span>
+            <span class="data-value">¥22,600</span>
+          </div>
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Hermès</span>
+            <span class="data-value">¥35,600</span>
+          </div>
+        </div>
+        <div class="history-actions">
+          <button class="action-btn view">查看详情</button>
+          <button class="action-btn edit" onclick="editReport('2026-04-17')">修改</button>
+        </div>
+      </div>
+      
+      <!-- 已通过 -->
+      <div class="history-item">
+        <div class="history-header">
+          <span class="history-date">📅 2026年4月16日</span>
+          <span class="history-status approved">✓ 已通过</span>
+        </div>
+        <div class="history-data">
+          <div class="data-row">
+            <span class="data-brand"><span class="badge core"></span> Dior</span>
+            <span class="data-value">¥19,800</span>
+          </div>
+          <div class="data-row">
+            <span class="data-brand"><span class="badge normal"></span> Gucci</span>
+            <span class="data-value">¥12,500</span>
+          </div>
+        </div>
+        <div class="history-actions">
+          <button class="action-btn view">查看详情</button>
+          <button class="action-btn edit" onclick="editReport('2026-04-16')">修改</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+  </div>
+  
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+    
+    function editReport(date) {
+      showToast(`正在打开 ${date} 的编辑页面...`);
+    }
+  </script>
+</body>
+</html>

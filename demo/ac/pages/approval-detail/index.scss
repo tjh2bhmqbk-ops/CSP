@@ -1,0 +1,174 @@
+@import '../../styles/variables.scss';
+
+.detail-page {
+  min-height: 100vh;
+  background-color: $csp-bg;
+  padding-bottom: calc($spacing-3xl + $safe-area-bottom);
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 112rpx 48rpx 48rpx;
+  background: $header-gradient;
+}
+
+.detail-month {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+}
+
+.detail-status {
+  padding: 12rpx 28rpx;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+}
+
+.info-card {
+  margin: 32rpx 48rpx;
+  background: $csp-card-bg;
+  border-radius: $radius-lg;
+  padding: 40rpx;
+  box-shadow: $shadow-sm;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid $csp-border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.info-label {
+  font-size: $font-size-base;
+  color: $csp-text-secondary;
+}
+
+.info-value {
+  font-size: $font-size-base;
+  color: $csp-text-primary;
+  font-weight: $font-weight-medium;
+
+  &.--warning {
+    color: $status-rejected;
+  }
+}
+
+.data-card {
+  margin: 32rpx 48rpx;
+  background: $csp-card-bg;
+  border-radius: $radius-lg;
+  padding: 40rpx;
+  box-shadow: $shadow-sm;
+}
+
+.card-title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+  margin-bottom: 28rpx;
+}
+
+.data-table {
+  border: 2rpx solid $csp-border-light;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.table-header {
+  display: flex;
+  background: $csp-bg;
+  padding: 28rpx 32rpx;
+
+  .th {
+    flex: 1;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $csp-text-secondary;
+    text-align: center;
+  }
+}
+
+.table-row {
+  display: flex;
+  padding: 28rpx 32rpx;
+  border-top: 2rpx solid $csp-border-light;
+
+  .td {
+    flex: 1;
+    font-size: $font-size-sm;
+    color: $csp-text-primary;
+    text-align: center;
+  }
+}
+
+.action-card {
+  margin: 32rpx 48rpx;
+  background: $csp-card-bg;
+  border-radius: $radius-lg;
+  padding: 40rpx;
+  box-shadow: $shadow-sm;
+}
+
+.action-title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+  margin-bottom: 28rpx;
+}
+
+.remark-input {
+  width: 100%;
+  height: 200rpx;
+  border: 2rpx solid $csp-border-color;
+  border-radius: $radius-md;
+  padding: 24rpx;
+  font-size: $font-size-base;
+  color: $csp-text-primary;
+  background: $csp-bg;
+  margin-bottom: 28rpx;
+}
+
+.action-btns {
+  display: flex;
+  gap: 24rpx;
+}
+
+.btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28rpx 0;
+  border-radius: $radius-md;
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+
+  &.--primary {
+    background: $csp-text-primary;
+    color: #FFFFFF;
+  }
+
+  &.--outline {
+    border: 2rpx solid $csp-border-color;
+    color: $csp-text-secondary;
+  }
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 160rpx 0;
+}
+
+.empty-text {
+  font-size: $font-size-sm;
+  color: $csp-text-placeholder;
+}

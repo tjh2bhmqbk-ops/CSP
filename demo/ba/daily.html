@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>每日上报 - CSP竞品情报系统</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    .mini-app {
+      padding-bottom: 100px;
+    }
+
+    /* 页面头部 */
+    .page-header {
+      background: linear-gradient(135deg, #1E3A5F 0%, #2D5A8E 100%);
+      color: #fff;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .page-title {
+      flex: 1;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    /* 日期选择 */
+    .date-selector {
+      background: #fff;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .date-label {
+      font-size: 15px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .date-value {
+      font-size: 14px;
+      color: #1E3A5F;
+      background: rgba(30, 58, 95, 0.08);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    /* 表单区域 */
+    .form-section {
+      background: #fff;
+      margin: 16px;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .form-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .competitor-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .competitor-item {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .competitor-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .competitor-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .competitor-badge {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .competitor-badge.core {
+      background: #F5222D;
+    }
+
+    .competitor-badge.normal {
+      background: #8C8C8C;
+    }
+
+    .competitor-brand {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .competitor-status {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .competitor-status.active {
+      color: #52C41A;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .input-label {
+      font-size: 13px;
+      color: #666;
+      width: 56px;
+    }
+
+    .input-field {
+      flex: 1;
+      height: 36px;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 0 12px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #1E3A5F;
+    }
+
+    .input-unit {
+      font-size: 14px;
+      color: #999;
+    }
+
+    /* 备注输入 */
+    .remark-section {
+      margin-top: 12px;
+    }
+
+    .remark-input {
+      width: 100%;
+      min-height: 60px;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      resize: none;
+      font-family: inherit;
+    }
+
+    .remark-input:focus {
+      outline: none;
+      border-color: #1E3A5F;
+    }
+
+    /* 提交按钮 */
+    .submit-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 375px;
+      background: #fff;
+      padding: 12px 16px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-draft {
+      flex: 1;
+      height: 44px;
+      background: #f5f5f5;
+      color: #666;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      flex: 2;
+      height: 44px;
+      background: linear-gradient(135deg, #1E3A5F 0%, #2D5A8E 100%);
+      color: #fff;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 1000;
+      display: none;
+    }
+
+    .toast.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="mini-app">
+    <!-- 页面头部 -->
+    <div class="page-header">
+      <a href="index.html" class="back-btn">‹</a>
+      <div class="page-title">每日竞品数据上报</div>
+    </div>
+
+    <!-- 日期选择 -->
+    <div class="date-selector">
+      <span class="date-label">📅 上报日期</span>
+      <span class="date-value">2026年4月20日（今日）</span>
+    </div>
+
+    <!-- 竞品数据表单 -->
+    <div class="form-section">
+      <div class="form-title">💰 竞品业绩录入</div>
+      <div class="competitor-list">
+        <!-- Dior -->
+        <div class="competitor-item">
+          <div class="competitor-header">
+            <div class="competitor-name">
+              <span class="competitor-badge core"></span>
+              <span class="competitor-brand">Dior</span>
+            </div>
+            <span class="competitor-status active">● 营业中</span>
+          </div>
+          <div class="input-row">
+            <span class="input-label">销售额</span>
+            <input type="number" class="input-field" id="dior_sales" placeholder="请输入金额" value="15800">
+            <span class="input-unit">元</span>
+          </div>
+        </div>
+
+        <!-- Louis Vuitton -->
+        <div class="competitor-item">
+          <div class="competitor-header">
+            <div class="competitor-name">
+              <span class="competitor-badge core"></span>
+              <span class="competitor-brand">Louis Vuitton</span>
+            </div>
+            <span class="competitor-status">🔨 装修中</span>
+          </div>
+          <div class="input-row">
+            <span class="input-label">销售额</span>
+            <input type="number" class="input-field" id="lv_sales" placeholder="请输入金额" value="0">
+            <span class="input-unit">元</span>
+          </div>
+        </div>
+
+        <!-- Gucci -->
+        <div class="competitor-item">
+          <div class="competitor-header">
+            <div class="competitor-name">
+              <span class="competitor-badge normal"></span>
+              <span class="competitor-brand">Gucci</span>
+            </div>
+            <span class="competitor-status active">● 营业中</span>
+          </div>
+          <div class="input-row">
+            <span class="input-label">销售额</span>
+            <input type="number" class="input-field" id="gucci_sales" placeholder="请输入金额" value="12300">
+            <span class="input-unit">元</span>
+          </div>
+        </div>
+
+        <!-- Hermès -->
+        <div class="competitor-item">
+          <div class="competitor-header">
+            <div class="competitor-name">
+              <span class="competitor-badge core"></span>
+              <span class="competitor-brand">Hermès</span>
+            </div>
+            <span class="competitor-status active">● 营业中</span>
+          </div>
+          <div class="input-row">
+            <span class="input-label">销售额</span>
+            <input type="number" class="input-field" id="hermes_sales" placeholder="请输入金额" value="35600">
+            <span class="input-unit">元</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 备注 -->
+      <div class="remark-section">
+        <textarea class="remark-input" placeholder="备注说明（选填）：如有异常情况请在此说明"></textarea>
+      </div>
+    </div>
+
+    <!-- 提交按钮 -->
+    <div class="submit-bar">
+      <button class="btn-draft" onclick="saveDraft()">保存草稿</button>
+      <button class="btn-submit" onclick="submitReport()">提交上报</button>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    function saveDraft() {
+      showToast('✓ 草稿保存成功');
+    }
+
+    function submitReport() {
+      const diorSales = document.getElementById('dior_sales').value;
+      const lvSales = document.getElementById('lv_sales').value;
+      const gucciSales = document.getElementById('gucci_sales').value;
+      const hermesSales = document.getElementById('hermes_sales').value;
+
+      if (!diorSales && !lvSales && !gucci && !hermesSales) {
+        showToast('请至少填写一项竞品数据');
+        return;
+      }
+
+      showToast('✓ 提交成功，等待审核');
+      setTimeout(() => {
+        location.href = 'index.html';
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

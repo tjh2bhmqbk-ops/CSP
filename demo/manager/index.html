@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>店长督导 - CSP竞品情报系统</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    .mini-app { padding-bottom: 80px; }
+    
+    /* 头部 */
+    .header-card {
+      background: linear-gradient(135deg, #1E3A5F 0%, #2D5A8E 100%);
+      color: #fff;
+      padding: 20px;
+      border-radius: 0 0 24px 24px;
+    }
+    
+    .header-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .header-subtitle {
+      font-size: 13px;
+      opacity: 0.85;
+    }
+    
+    .header-user {
+      display: flex;
+      align-items: center;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .header-avatar {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-right: 12px;
+    }
+    
+    .header-user-info { flex: 1; }
+    
+    .header-user-name {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    
+    .header-user-role {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    
+    /* 预警卡片 */
+    .alert-section {
+      margin-top: -12px;
+      position: relative;
+      z-index: 10;
+      padding: 0 16px;
+    }
+    
+    .alert-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    
+    .alert-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    
+    .alert-icon.danger { background: rgba(245, 34, 45, 0.1); }
+    .alert-icon.warning { background: rgba(250, 173, 20, 0.1); }
+    .alert-icon.info { background: rgba(24, 144, 255, 0.1); }
+    
+    .alert-content { flex: 1; }
+    
+    .alert-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .alert-desc {
+      font-size: 12px;
+      color: #666;
+      margin-top: 2px;
+    }
+    
+    .alert-count {
+      background: #F5222D;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .alert-count.warning {
+      background: #FAAD14;
+      color: #333;
+    }
+    
+    /* 审核列表 */
+    .review-section {
+      padding: 0 16px;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .section-more {
+      font-size: 13px;
+      color: #999;
+      text-decoration: none;
+    }
+    
+    .review-list {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    
+    .review-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .review-item:last-child { border-bottom: none; }
+    
+    .review-type {
+      width: 48px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #1E3A5F;
+      text-align: center;
+    }
+    
+    .review-info {
+      flex: 1;
+      margin-left: 12px;
+    }
+    
+    .review-brand {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .review-detail {
+      font-size: 12px;
+      color: #666;
+      margin-top: 2px;
+    }
+    
+    .review-amount {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1E3A5F;
+      margin-right: 12px;
+    }
+    
+    .review-actions {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .action-btn.approve {
+      background: rgba(82, 196, 26, 0.1);
+      color: #52C41A;
+    }
+    
+    .action-btn.reject {
+      background: rgba(245, 34, 45, 0.1);
+      color: #F5222D;
+    }
+    
+    /* 竞品概览 */
+    .overview-section {
+      padding: 0 16px;
+    }
+    
+    .overview-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    
+    .overview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    
+    .overview-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .overview-tab {
+      font-size: 12px;
+      color: #1E3A5F;
+      background: rgba(30, 58, 95, 0.08);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    
+    .overview-chart {
+      margin-bottom: 14px;
+    }
+    
+    .chart-bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .chart-label {
+      width: 70px;
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .chart-fill {
+      flex: 1;
+      height: 20px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 0 8px;
+    }
+    
+    .chart-value {
+      width: 60px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #333;
+      text-align: right;
+    }
+    
+    .bar-inner {
+      height: 100%;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      font-size: 11px;
+      color: #fff;
+      font-weight: 500;
+    }
+    
+    .bar-inner.chanel { background: linear-gradient(90deg, #1E3A5F, #2D5A8E); }
+    .bar-inner.dior { background: #722ED1; }
+    .bar-inner.lv { background: #13C2C2; }
+    .bar-inner.gucci { background: #FA8C16; }
+    .bar-inner.hermes { background: #EB2F96; }
+    
+    .overview-trend {
+      font-size: 12px;
+      color: #52C41A;
+      text-align: right;
+    }
+    
+    /* 门店覆盖 */
+    .coverage-section {
+      padding: 0 16px;
+    }
+    
+    .coverage-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    
+    .coverage-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .coverage-value {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1E3A5F;
+    }
+    
+    .coverage-progress {
+      height: 8px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    
+    .coverage-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #1E3A5F, #2D5A8E);
+      border-radius: 4px;
+    }
+    
+    .coverage-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #666;
+    }
+    
+    /* TabBar */
+    .mini-tabbar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 375px;
+      display: flex;
+      background: #fff;
+      border-top: 1px solid #eee;
+      padding: 8px 0;
+      padding-bottom: calc(8px + env(safe-area-inset-bottom));
+    }
+    
+    .tabbar-item {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      color: #999;
+    }
+    
+    .tabbar-item.active { color: #1E3A5F; }
+    
+    .tabbar-icon {
+      font-size: 22px;
+      margin-bottom: 2px;
+    }
+    
+    .toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 1000;
+      display: none;
+    }
+    
+    .toast.show { display: block; animation: fadeIn 0.3s ease; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="mini-app">
+    <!-- 头部 -->
+    <div class="header-card">
+      <div class="header-title">📊 竞品数据管理</div>
+      <div class="header-subtitle">华东区域 · 上海分区</div>
+      <div class="header-user">
+        <div class="header-avatar">👔</div>
+        <div class="header-user-info">
+          <div class="header-user-name">王督导</div>
+          <div class="header-user-role">区域督导 AC</div>
+        </div>
+        <div style="font-size: 20px;">🔔<span style="background:#F5222D;color:#fff;padding:2px 6px;border-radius:10px;font-size:11px;margin-left:4px;">3</span></div>
+      </div>
+    </div>
+    
+    <!-- 预警提醒 -->
+    <div class="alert-section">
+      <a href="missing-list.html" class="alert-card">
+        <div class="alert-icon danger">⚠️</div>
+        <div class="alert-content">
+          <div class="alert-title">未上报提醒</div>
+          <div class="alert-desc">3个柜台已连续3天未上报</div>
+        </div>
+        <span class="alert-count">3个</span>
+      </a>
+      
+      <a href="abnormal-list.html" class="alert-card">
+        <div class="alert-icon warning">📈</div>
+        <div class="alert-content">
+          <div class="alert-title">数据异常提醒</div>
+          <div class="alert-desc">2个柜台数据异常，需核实</div>
+        </div>
+        <span class="alert-count warning">2条</span>
+      </a>
+    </div>
+    
+    <!-- 待审核任务 -->
+    <div class="review-section">
+      <div class="section-header">
+        <span class="section-title">📋 待审核任务</span>
+        <a href="review-center.html" class="section-more">全部 ›</a>
+      </div>
+      
+      <div class="review-list">
+        <div class="review-item">
+          <div class="review-type">日报</div>
+          <div class="review-info">
+            <div class="review-brand">Dior 迪奥</div>
+            <div class="review-detail">10:23 · 新天地店</div>
+          </div>
+          <div class="review-amount">¥15,800</div>
+          <div class="review-actions">
+            <button class="action-btn approve" onclick="approve(this)">✓</button>
+            <button class="action-btn reject" onclick="reject(this)">✗</button>
+          </div>
+        </div>
+        
+        <div class="review-item">
+          <div class="review-type">日报</div>
+          <div class="review-info">
+            <div class="review-brand">Gucci 古驰</div>
+            <div class="review-detail">10:15 · 新天地店</div>
+          </div>
+          <div class="review-amount">¥12,300</div>
+          <div class="review-actions">
+            <button class="action-btn approve" onclick="approve(this)">✓</button>
+            <button class="action-btn reject" onclick="reject(this)">✗</button>
+          </div>
+        </div>
+        
+        <div class="review-item">
+          <div class="review-type">周报</div>
+          <div class="review-info">
+            <div class="review-brand">第16周汇总</div>
+            <div class="review-detail">09:45 · 恒隆广场</div>
+          </div>
+          <div class="review-amount">¥98,600</div>
+          <div class="review-actions">
+            <button class="action-btn approve" onclick="approve(this)">✓</button>
+            <button class="action-btn reject" onclick="reject(this)">✗</button>
+          </div>
+        </div>
+        
+        <div class="review-item">
+          <div class="review-type">柜台</div>
+          <div class="review-info">
+            <div class="review-brand">Dior 新开店</div>
+            <div class="review-detail">08:30 · 新天地</div>
+          </div>
+          <div class="review-amount">新开</div>
+          <div class="review-actions">
+            <button class="action-btn approve" onclick="approve(this)">✓</button>
+            <button class="action-btn reject" onclick="reject(this)">✗</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 竞品数据概览 -->
+    <div class="overview-section" style="margin-top: 16px;">
+      <div class="overview-card">
+        <div class="overview-header">
+          <span class="overview-title">📈 本月竞品数据概览</span>
+          <span class="overview-tab">4月</span>
+        </div>
+        <div class="overview-chart">
+          <div class="chart-bar">
+            <span class="chart-label">Chanel</span>
+            <div class="chart-fill">
+              <div class="bar-inner chanel" style="width: 100%;">285万</div>
+            </div>
+            <span class="chart-value">¥285万</span>
+          </div>
+          <div class="chart-bar">
+            <span class="chart-label">Dior</span>
+            <div class="chart-fill">
+              <div class="bar-inner dior" style="width: 94%;">268万</div>
+            </div>
+            <span class="chart-value">¥268万</span>
+          </div>
+          <div class="chart-bar">
+            <span class="chart-label">LV</span>
+            <div class="chart-fill">
+              <div class="bar-inner lv" style="width: 82%;">234万</div>
+            </div>
+            <span class="chart-value">¥234万</span>
+          </div>
+          <div class="chart-bar">
+            <span class="chart-label">Gucci</span>
+            <div class="chart-fill">
+              <div class="bar-inner gucci" style="width: 74%;">212万</div>
+            </div>
+            <span class="chart-value">¥212万</span>
+          </div>
+          <div class="chart-bar">
+            <span class="chart-label">Hermès</span>
+            <div class="chart-fill">
+              <div class="bar-inner hermes" style="width: 69%;">198万</div>
+            </div>
+            <span class="chart-value">¥198万</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 门店覆盖 -->
+    <div class="coverage-section" style="margin-top: 16px;">
+      <div class="coverage-card">
+        <div class="coverage-header">
+          <span class="overview-title">🏪 门店覆盖监控</span>
+          <span class="coverage-value">92.3%</span>
+        </div>
+        <div class="coverage-progress">
+          <div class="coverage-fill" style="width: 92.3%;"></div>
+        </div>
+        <div class="coverage-stats">
+          <span>总柜台 128</span>
+          <span>已上报 118</span>
+          <span>未上报 10</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- TabBar -->
+    <div class="mini-tabbar">
+      <div class="tabbar-item active">
+        <div class="tabbar-icon">🏠</div>
+        <div>首页</div>
+      </div>
+      <div class="tabbar-item">
+        <div class="tabbar-icon">📝</div>
+        <div>审核</div>
+      </div>
+      <div class="tabbar-item">
+        <div class="tabbar-icon">📊</div>
+        <div>报表</div>
+      </div>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+  </div>
+  
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+    
+    function approve(btn) {
+      const item = btn.closest('.review-item');
+      item.style.opacity = '0.5';
+      item.style.pointerEvents = 'none';
+      showToast('✓ 已通过');
+    }
+    
+    function reject(btn) {
+      showToast('✗ 已驳回');
+    }
+  </script>
+</body>
+</html>

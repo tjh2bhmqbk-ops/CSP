@@ -1,0 +1,438 @@
+@import '@/styles/variables.scss';
+
+.competitor-page {
+  min-height: 100vh;
+  background: $csp-bg;
+}
+
+/* ========== 头部 ========== */
+.competitor-header {
+  padding: $spacing-lg $spacing-md;
+  background: #fff;
+  border-bottom-left-radius: $radius-lg;
+  border-bottom-right-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  position: relative;
+}
+
+.competitor-title {
+  font-size: $font-size-lg;
+  font-weight: 700;
+  color: $csp-text-primary;
+  display: block;
+  margin-bottom: $spacing-xs;
+}
+
+.competitor-subtitle {
+  font-size: $font-size-sm;
+  color: $csp-text-secondary;
+  display: block;
+}
+
+.competitor-save-hint {
+  position: absolute;
+  top: $spacing-lg;
+  right: $spacing-md;
+  font-size: $font-size-sm;
+  color: $csp-text-placeholder;
+  transition: opacity 0.3s;
+
+  &.saving {
+    color: $primary-start;
+    font-weight: 500;
+  }
+}
+
+/* ========== 统计卡片 ========== */
+.competitor-stats-row {
+  display: flex;
+  gap: $spacing-sm;
+  padding: $spacing-md;
+  margin-top: $spacing-sm;
+}
+
+.competitor-stat-card {
+  flex: 1;
+  background: #fff;
+  border-radius: $radius-md;
+  padding: $spacing-md $spacing-sm;
+  text-align: center;
+  box-shadow: $shadow-md;
+
+  // 各状态对应的颜色
+  &:nth-child(1) {
+    .competitor-stat-number { color: #52c41a; }
+    border-left: 3px solid #52c41a;
+  }
+  &:nth-child(2) {
+    .competitor-stat-number { color: #faad14; }
+    border-left: 3px solid #faad14;
+  }
+  &:nth-child(3) {
+    .competitor-stat-number { color: #8c8c8c; }
+    border-left: 3px solid #8c8c8c;
+  }
+}
+
+.competitor-stat-number {
+  font-size: $font-size-xl;
+  font-weight: 700;
+  display: block;
+  line-height: 1.2;
+}
+
+.competitor-stat-label {
+  font-size: $font-size-xs;
+  color: $csp-text-secondary;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ========== 列表区域 ========== */
+.competitor-list-section {
+  padding: 0 $spacing-md;
+  margin-top: $spacing-sm;
+}
+
+.competitor-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-sm 0;
+}
+
+.competitor-list-title {
+  font-size: $font-size-base;
+  font-weight: 600;
+  color: $csp-text-primary;
+}
+
+.competitor-total-count {
+  font-size: $font-size-sm;
+  color: $csp-text-secondary;
+}
+
+/* ========== 单个竞品卡片 ========== */
+.competitor-card {
+  background: #fff;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-sm;
+  box-shadow: $shadow-md;
+}
+
+.competitor-brand-info {
+  margin-bottom: $spacing-md;
+}
+
+.competitor-brand-name-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-bottom: 6px;
+}
+
+.competitor-brand-name {
+  font-size: $font-size-md;
+  font-weight: 600;
+  color: $csp-text-primary;
+}
+
+.competitor-type-tag {
+  padding: 2px 8px;
+  border-radius: 4px;
+
+  &.core {
+    background: rgba(30, 58, 95, 0.08);
+  }
+
+  &.normal {
+    background: rgba(153, 153, 153, 0.08);
+  }
+}
+
+.competitor-type-text {
+  font-size: $font-size-xs;
+  color: $csp-text-secondary;
+}
+
+.competitor-current-status {
+  font-size: $font-size-sm;
+  color: $csp-text-secondary;
+}
+
+/* ========== 状态按钮组 ========== */
+.competitor-status-actions {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+.competitor-status-btn {
+  flex: 1;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-sm;
+  background: #f0f0f0;
+  transition: all 0.2s;
+
+  &:active {
+    transform: scale(0.97);
+    opacity: 0.85;
+  }
+
+  // 各状态按钮颜色
+  &.new {
+    background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
+    .competitor-status-btn-text { color: #fff; }
+  }
+
+  &.normal {
+    background: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
+    .competitor-status-btn-text { color: #fff; }
+  }
+
+  &.renovate {
+    background: linear-gradient(135deg, #faad14 0%, #ffc53d 100%);
+    .competitor-status-btn-text { color: #fff; }
+  }
+
+  &.closed {
+    background: linear-gradient(135deg, #8c8c8c 0%, #a6a6a6 100%);
+    .competitor-status-btn-text { color: #fff; }
+  }
+
+  &.active {
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.competitor-status-btn-text {
+  font-size: $font-size-sm;
+  font-weight: 500;
+
+  &.active {
+    font-weight: 600;
+  }
+}
+
+/* ========== 底部操作区 ========== */
+.competitor-actions {
+  padding: $spacing-lg $spacing-md;
+}
+
+.competitor-reset-btn {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: $radius-md;
+  border: 1px solid $csp-border-color;
+  box-shadow: $shadow-md;
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+.competitor-reset-btn-text {
+  font-size: $font-size-base;
+  color: #F5222D;
+}
+
+/* ========== 底部安全区 ========== */
+.competitor-bottom-space {
+  height: 40px;
+}
+
+/* ========== 新增按钮 ========== */
+.competitor-list-header-right {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.competitor-add-btn {
+  padding: 4px 12px;
+  background: $primary-start;
+  border-radius: $radius-sm;
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.competitor-add-btn-text {
+  font-size: $font-size-sm;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* ========== 新增竞品弹窗 ========== */
+.competitor-modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.competitor-modal {
+  width: 100%;
+  max-width: 414px;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: $radius-lg $radius-lg 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.competitor-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-md;
+  border-bottom: 1px solid $csp-border-color;
+}
+
+.competitor-modal-title {
+  font-size: $font-size-md;
+  font-weight: 600;
+  color: $csp-text-primary;
+}
+
+.competitor-modal-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xl;
+  color: $csp-text-placeholder;
+  &:active {
+    opacity: 0.6;
+  }
+}
+
+.competitor-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-md;
+}
+
+.competitor-form-group {
+  margin-bottom: $spacing-lg;
+}
+
+.competitor-form-label {
+  font-size: $font-size-base;
+  font-weight: 500;
+  color: $csp-text-primary;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+/* 品牌选择网格 */
+.competitor-brand-grid {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.competitor-brand-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  background: #fafafa;
+  border-radius: $radius-sm;
+  border: 1px solid transparent;
+  &:active {
+    opacity: 0.8;
+  }
+
+  &.selected {
+    background: rgba($primary-start, 0.08);
+    border-color: $primary-start;
+  }
+}
+
+.competitor-brand-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid $csp-border-color;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .competitor-brand-item.selected & {
+    background: $primary-start;
+    border-color: $primary-start;
+  }
+}
+
+.competitor-brand-check {
+  font-size: $font-size-sm;
+  color: #fff;
+  font-weight: bold;
+}
+
+.competitor-brand-info {
+  flex: 1;
+}
+
+.competitor-brand-name-text {
+  font-size: $font-size-base;
+  color: $csp-text-primary;
+  display: block;
+}
+
+.competitor-brand-group-text {
+  font-size: $font-size-xs;
+  color: $csp-text-placeholder;
+  display: block;
+  margin-top: 2px;
+}
+
+/* 空状态 */
+.competitor-empty-tip {
+  padding: $spacing-lg;
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $csp-text-placeholder;
+  background: #fafafa;
+  border-radius: $radius-sm;
+}
+
+/* 弹窗底部 */
+.competitor-modal-footer {
+  padding: $spacing-md;
+  border-top: 1px solid $csp-border-color;
+}
+
+.competitor-confirm-btn {
+  height: 44px;
+  background: $primary-start;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:active {
+    opacity: 0.85;
+  }
+}
+
+.competitor-confirm-btn-text {
+  font-size: $font-size-base;
+  color: #fff;
+  font-weight: 600;
+}

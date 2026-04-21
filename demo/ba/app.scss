@@ -1,0 +1,51 @@
+@import './styles/variables.scss';
+
+// 页面样式
+@import './pages/index/index.scss';
+@import './pages/daily/index.scss';
+@import './pages/daily/components/CompetitorCard.scss';
+@import './pages/daily/components/DatePicker.scss';
+@import './pages/daily/components/StatusSelector.scss';
+@import './pages/daily-history/index.scss';
+@import './pages/daily-history/components/FilterTabs.scss';
+@import './pages/daily-history/components/RecordCard.scss';
+@import './pages/daily-history/components/RecordDetailModal.scss';
+@import './pages/monthly/index.scss';
+@import './pages/monthly-history/index.scss';
+@import './pages/monthly-history/components/RecordDetailModal.scss';
+@import './pages/profile/index.scss';
+@import './pages/abnormal-data/index.scss';
+@import './pages/todo-list/index.scss';
+@import './pages/todo-list/components/TodoDetailModal.scss';
+@import './pages/competitor-mgmt/index.scss';
+
+page {
+  font-family: $font-family;
+  font-size: $font-size-base;
+  color: $csp-text-primary;
+  background-color: $csp-bg;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+view,
+text,
+input,
+textarea,
+button {
+  box-sizing: border-box;
+}
+
+// 全局卡片样式
+.card {
+  background-color: $csp-card-bg;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-md;
+}
+
+// 安全区域底部占位
+.safe-bottom {
+  padding-bottom: calc($safe-area-bottom + 16px);
+}

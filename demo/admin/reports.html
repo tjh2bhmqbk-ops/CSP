@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据报表 - CSP竞品情报系统</title>
+  <link rel="stylesheet" href="../styles/main.css">
+  <style>
+    body { margin: 0; background: #F5F5F5; }
+    
+    .admin-layout { display: flex; min-height: 100vh; }
+    
+    .admin-sidebar {
+      width: 220px;
+      background: linear-gradient(180deg, #1E3A5F 0%, #0F1F33 100%);
+      color: #fff;
+      padding: 0;
+      flex-shrink: 0;
+      position: fixed;
+      height: 100vh;
+    }
+    
+    .sidebar-logo { padding: 24px 20px; font-size: 18px; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    
+    .sidebar-nav { padding: 16px 0; }
+    
+    .nav-section { margin-bottom: 8px; }
+    
+    .nav-section-title { padding: 8px 20px; font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+    
+    .sidebar-item { display: flex; align-items: center; padding: 12px 20px; color: rgba(255,255,255,0.7); font-size: 14px; text-decoration: none; }
+    .sidebar-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .sidebar-item.active { background: rgba(255,255,255,0.15); color: #fff; border-left: 3px solid #fff; }
+    
+    .sidebar-icon { width: 20px; margin-right: 12px; text-align: center; }
+    
+    .admin-main { flex: 1; margin-left: 220px; }
+    
+    .admin-header { background: #fff; padding: 16px 24px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
+    
+    .admin-brand-label { font-size: 13px; color: #666; margin-right: 8px; }
+    
+    .admin-brand-select { padding: 8px 16px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+    
+    .admin-content { padding: 24px; }
+    
+    .page-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #333; }
+    
+    /* Tab */
+    .report-tabs { display: flex; gap: 12px; margin-bottom: 24px; }
+    
+    .report-tab {
+      padding: 12px 24px;
+      background: #fff;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    
+    .report-tab.active { background: #1E3A5F; color: #fff; }
+    
+    /* 表格 */
+    .report-table { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    
+    .table-header { display: flex; background: #fafafa; padding: 14px 20px; font-weight: 600; font-size: 13px; color: #666; border-bottom: 1px solid #eee; }
+    
+    .table-row { display: flex; padding: 14px 20px; border-bottom: 1px solid #f0f0f0; align-items: center; font-size: 14px; }
+    .table-row:last-child { border-bottom: none; }
+    
+    .table-cell { flex: 1; }
+    .table-cell:first-child { flex: 0.5; }
+    
+    .competitor-core::before { content: '●'; color: #F5222D; margin-right: 4px; }
+    .competitor-normal::before { content: '○'; color: #8C8C8C; margin-right: 4px; }
+    
+    .trend.up { color: #52C41A; }
+    .trend.down { color: #F5222D; }
+    
+    /* 竞品状态 */
+    .counter-status { display: inline-flex; align-items: center; gap: 4px; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .status-dot.normal { background: #52C41A; }
+    .status-dot.renovate { background: #FAAD14; }
+    .status-dot.closed { background: #8C8C8C; }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div class="sidebar-logo">📊 CSP竞品情报</div>
+      <div class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">数据中心</div>
+          <a href="index.html" class="sidebar-item"><span class="sidebar-icon">🏠</span><span>首页概览</span></a>
+          <a href="alert-center.html" class="sidebar-item"><span class="sidebar-icon">⚠️</span><span>异常预警</span></a>
+          <a href="#" class="sidebar-item active"><span class="sidebar-icon">📈</span><span>数据报表</span></a>
+          <a href="review-admin.html" class="sidebar-item"><span class="sidebar-icon">✅</span><span>修改审批</span></a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">基础管理</div>
+          <a href="brand.html" class="sidebar-item"><span class="sidebar-icon">🏢</span><span>品牌管理</span></a>
+          <a href="competitor.html" class="sidebar-item"><span class="sidebar-icon">⚔️</span><span>竞品关系</span></a>
+          <a href="region.html" class="sidebar-item"><span class="sidebar-icon">📍</span><span>区域/城市</span></a>
+          <a href="counter.html" class="sidebar-item"><span class="sidebar-icon">🏪</span><span>柜台管理</span></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="admin-main">
+      <div class="admin-header">
+        <div>
+          <span class="admin-brand-label">当前品牌</span>
+          <select class="admin-brand-select">
+            <option>Chanel</option>
+            <option>Louis Vuitton</option>
+            <option>全部品牌</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="admin-content">
+        <h2 class="page-title">📈 数据报表</h2>
+        
+        <div class="report-tabs">
+          <div class="report-tab active">日报数据</div>
+          <div class="report-tab">周报数据</div>
+          <div class="report-tab">月报数据</div>
+          <div class="report-tab">促销状态</div>
+          <div class="report-tab">柜台状态</div>
+        </div>
+        
+        <!-- 日报数据表 -->
+        <div class="report-table">
+          <div class="table-header">
+            <div class="table-cell">品牌</div>
+            <div class="table-cell">今日销售</div>
+            <div class="table-cell">环比</div>
+            <div class="table-cell">同比</div>
+            <div class="table-cell">状态</div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="competitor-core">Chanel</span></div>
+            <div class="table-cell">¥285,000</div>
+            <div class="table-cell"><span class="trend up">↑ 12.5%</span></div>
+            <div class="table-cell"><span class="trend up">↑ 8.2%</span></div>
+            <div class="table-cell"><span class="counter-status"><span class="status-dot normal"></span>正常</span></div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="competitor-core">Dior</span></div>
+            <div class="table-cell">¥268,000</div>
+            <div class="table-cell"><span class="trend up">↑ 8.3%</span></div>
+            <div class="table-cell"><span class="trend up">↑ 5.6%</span></div>
+            <div class="table-cell"><span class="counter-status"><span class="status-dot normal"></span>正常</span></div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="competitor-core">Louis Vuitton</span></div>
+            <div class="table-cell">¥0</div>
+            <div class="table-cell">-</div>
+            <div class="table-cell">-</div>
+            <div class="table-cell"><span class="counter-status"><span class="status-dot renovate"></span>装修中</span></div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="competitor-normal">Gucci</span></div>
+            <div class="table-cell">¥212,000</div>
+            <div class="table-cell"><span class="trend up">↑ 3.2%</span></div>
+            <div class="table-cell"><span class="trend down">↓ 2.1%</span></div>
+            <div class="table-cell"><span class="counter-status"><span class="status-dot closed"></span>已闭店</span></div>
+          </div>
+          
+          <div class="table-row">
+            <div class="table-cell"><span class="competitor-core">Hermès</span></div>
+            <div class="table-cell">¥198,000</div>
+            <div class="table-cell"><span class="trend up">↑ 6.5%</span></div>
+            <div class="table-cell"><span class="trend up">↑ 12.8%</span></div>
+            <div class="table-cell"><span class="counter-status"><span class="status-dot normal"></span>正常</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.querySelectorAll('.report-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelector('.report-tab.active').classList.remove('active');
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

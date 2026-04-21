@@ -1,0 +1,39 @@
+- generic [ref=e2]:
+  - generic [ref=e6]:
+    - generic [ref=e8]: 数据报表
+    - generic [ref=e9]:
+      - generic [ref=e11]: 日报
+      - generic [ref=e13]: 月报
+    - generic [ref=e17]:
+      - img [ref=e18]
+      - generic [ref=e20]: 2026年3月
+      - img [ref=e21]
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]: 月份
+        - generic [ref=e27]: 柜台
+        - generic [ref=e28]: 金额
+        - generic [ref=e29]: 状态
+      - generic [ref=e30]:
+        - generic [ref=e31]: 2026年3月
+        - generic [ref=e32]: 雅诗兰黛·杭州万象城FSS
+        - generic [ref=e33]: 1,579,000
+        - generic [ref=e36]: 待审核
+      - generic [ref=e37]:
+        - generic [ref=e38]: 2026年3月
+        - generic [ref=e39]: 雅诗兰黛·杭州西湖银泰FSS
+        - generic [ref=e40]: 754,000
+        - generic [ref=e43]: 待审核
+  - generic [ref=e45]:
+    - link "上报审批" [ref=e46]:
+      - /url: javascript:;
+      - paragraph [ref=e48]: 上报审批
+    - link "异常柜台" [ref=e49]:
+      - /url: javascript:;
+      - paragraph [ref=e51]: 异常柜台
+    - link "数据报表" [ref=e52]:
+      - /url: javascript:;
+      - paragraph [ref=e54]: 数据报表
+    - link "我的" [ref=e55]:
+      - /url: javascript:;
+      - paragraph [ref=e57]: 我的

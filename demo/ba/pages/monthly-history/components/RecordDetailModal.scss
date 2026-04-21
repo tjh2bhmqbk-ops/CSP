@@ -1,0 +1,215 @@
+@import '@/styles/variables.scss';
+
+.modal-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 200ms ease forwards;
+}
+
+.modal-content {
+  width: 100%;
+  max-height: 85vh;
+  background: #FFFFFF;
+  border-radius: $radius-xl $radius-xl 0 0;
+  overflow-y: auto;
+  animation: slideUp 300ms ease forwards;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+// --- 头部 ---
+.modal-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-xl $spacing-lg;
+  background: #FFFFFF;
+  border-bottom: 1px solid $csp-border-light;
+  z-index: 1;
+}
+
+.modal-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+}
+
+.modal-close {
+  width: 56rpx; height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #F5F5F5;
+
+  & > text { font-size: $font-size-md; color: #999; }
+}
+
+// --- 内容 ---
+.modal-body { padding: $spacing-lg $spacing-xl; }
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-md 0;
+  border-bottom: 1px solid $csp-border-light;
+
+  &:last-child { border-bottom: none; }
+}
+
+.info-label { font-size: $font-size-base; color: $csp-text-secondary; }
+.info-value { font-size: $font-size-base; color: $csp-text-primary; font-weight: $font-weight-medium; }
+
+.status-badge {
+  padding: 8rpx 24rpx;
+  border-radius: $radius-full;
+}
+.status-badge-text { font-size: $font-size-sm; font-weight: $font-weight-bold; }
+
+// --- 汇总 ---
+.summary-section { margin-top: $spacing-xl; }
+.summary-section__title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+  margin-bottom: $spacing-md;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-sm;
+  padding: $spacing-lg;
+  background: #F9FAFB;
+  border-radius: $radius-md;
+  border: 1px solid #F0F0F0;
+}
+.summary-cell {
+  text-align: center;
+  padding: $spacing-sm 0;
+}
+.summary-cell__val {
+  display: block;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $primary-start;
+}
+.summary-cell__label {
+  display: block;
+  font-size: $font-size-xs;
+  color: $csp-text-placeholder;
+  margin-top: 4rpx;
+}
+
+// --- 竞品明细 ---
+.detail-section { margin-top: $spacing-xl; }
+.detail-section__title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+  margin-bottom: $spacing-md;
+}
+.detail-item {
+  background: #FAFBFC;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  border: 1px solid #F0F0F0;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 12rpx;
+    margin-bottom: $spacing-md;
+  }
+
+  .dot {
+    width: 14rpx; height: 14rpx;
+    border-radius: 50%;
+    background-color: $normal-badge;
+
+    &--core { background-color: $core-badge; }
+  }
+
+  &__data {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10rpx $spacing-xl;
+    padding-left: 26rpx;
+  }
+}
+
+.detail-brand { font-size: $font-size-base; font-weight: $font-weight-bold; color: $csp-text-primary; }
+.detail-type { font-size: $font-size-xs; color: $csp-text-secondary; background: #EEE; padding: 2rpx 12rpx; border-radius: $radius-full; }
+.detail-status { font-size: $font-size-xs; margin-left: auto; color: $csp-text-placeholder; }
+
+.d-label { font-size: $font-size-sm; color: $csp-text-secondary; }
+.d-val { font-size: $font-size-sm; color: $csp-text-primary; font-weight: $font-weight-medium; }
+
+// --- 备注 ---
+.remark-section { margin-top: $spacing-xl; }
+.remark-section__title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+  margin-bottom: $spacing-md;
+}
+.remark-text {
+  font-size: $font-size-base;
+  color: #555;
+  line-height: 1.6;
+  padding: $spacing-md;
+  background: #F9F9F9;
+  border-radius: $radius-sm;
+}
+
+// --- 驳回原因 ---
+.reject-section { margin-top: $spacing-xl; }
+.reject-section__title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $status-rejected;
+  margin-bottom: $spacing-md;
+}
+.reject-text {
+  font-size: $font-size-base;
+  color: $status-rejected;
+  line-height: 1.6;
+  padding: $spacing-md;
+  background: $status-rejected-bg;
+  border-radius: $radius-sm;
+  border-left: 5rpx solid $status-rejected;
+}
+
+// --- 底部 ---
+.modal-footer {
+  position: sticky;
+  bottom: 0;
+  padding: $spacing-md $spacing-xl calc($spacing-md + env(safe-area-inset-bottom));
+  background: #FFFFFF;
+  border-top: 1px solid $csp-border-light;
+}
+.modal-btn {
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $primary-gradient;
+  border-radius: $radius-xl;
+  box-shadow: 0 4px 16px rgba(30,58,95,0.25);
+  &:active { opacity: 0.85; }
+}
+.modal-btn-text {
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+  color: #FFFFFF;
+  letter-spacing: 2rpx;
+}

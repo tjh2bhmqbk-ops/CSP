@@ -1,0 +1,4 @@
+[      32ms] [LOG] [AC Demo] Approval tasks: 4 items generated @ http://localhost:10089/js/app.js:1
+[      32ms] [LOG] [AC Demo] Abnormal counters: 3 items generated @ http://localhost:10089/js/app.js:1
+[      32ms] [LOG] [AC Demo] All demo data generated @ http://localhost:10089/js/app.js:1
+[      32ms] [LOG] [AC App] Demo data generated on mount @ http://localhost:10089/js/app.js:1

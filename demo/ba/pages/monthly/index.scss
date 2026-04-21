@@ -1,0 +1,319 @@
+@import '@/styles/variables.scss';
+
+.monthly-page {
+  min-height: 100vh;
+  padding-bottom: 140rpx;
+  background-color: $csp-bg;
+
+  &__content {
+    padding: $spacing-lg $spacing-lg 0;
+  }
+}
+
+// --- 导航头部 ---
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $nav-height;
+  padding: 0 $spacing-lg;
+  background: $header-gradient;
+
+  &__back {
+    width: 68rpx; height: 68rpx;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.75);
+    &:active { opacity: 0.7; }
+  }
+
+  &__title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $csp-text-primary;
+  }
+
+  &__placeholder { width: 68rpx; }
+}
+
+// --- 上报时间提示 ---
+.report-hint-card {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CD 100%);
+  border: 1rpx solid #FFE58F;
+  border-radius: $radius-md;
+  padding: $spacing-md $spacing-lg;
+  margin-bottom: $spacing-md;
+}
+
+.report-hint-text {
+  font-size: $font-size-sm;
+  color: #AD6800;
+  line-height: 1.5;
+}
+
+// --- 卡片通用 ---
+.card-title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $csp-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+// --- 月份选择 ---
+.month-picker-card {}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+}
+
+.picker-value {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $primary-start;
+}
+
+.picker-arrow {
+  font-size: $font-size-xs;
+  color: $csp-text-placeholder;
+}
+
+// --- 竞品录入 ---
+.comp-section {}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-lg;
+
+  &__title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $csp-text-primary;
+  }
+
+  &__total {
+    font-size: $font-size-base;
+    color: $status-pending;
+    font-weight: $font-weight-bold;
+    background: $status-pending-bg;
+    padding: 8rpx 20rpx;
+    border-radius: $radius-full;
+  }
+}
+
+.comp-row {
+  background: #F8F9FA;
+  border-radius: $radius-md;
+  padding: $spacing-xl;
+  margin-bottom: $spacing-md;
+  border: 1px solid rgba(0,0,0,0.03);
+
+  &--disabled { opacity: 0.55; }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__brand-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14rpx;
+  }
+
+  &__dot {
+    width: 16rpx; height: 16rpx;
+    border-radius: 50%;
+    background-color: $normal-badge;
+
+    &.--core {
+      background-color: $core-badge;
+      box-shadow: 0 0 6rpx rgba(245,34,45,0.35);
+    }
+  }
+
+  &__brand {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $csp-text-primary;
+  }
+
+  &__input-row {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+  }
+
+  &__sub-row {
+    display: flex;
+    gap: $spacing-xxl;
+    margin-top: $spacing-lg;
+    padding-top: $spacing-md;
+    border-top: 1px solid $csp-border-light;
+  }
+}
+
+.status-tag {
+  padding: 10rpx 22rpx;
+  border-radius: $radius-full;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+
+  &--normal { background: #F6FFED; color: #52C41A; border: 1px solid #B7EB8F; }
+  &--renovation { background: #FFF7E6; color: #D48806; border: 1px solid #FFE58F; }
+  &--closed { background: #F5F5F5; color: #999; border: 1px solid #D9D9D9; }
+}
+
+.input-label {
+  font-size: $font-size-base;
+  color: $csp-text-secondary;
+  white-space: nowrap;
+  min-width: 100rpx;
+  font-weight: $font-weight-medium;
+}
+
+.sales-input {
+  flex: 1;
+  height: 72rpx;
+  background: #FFFFFF;
+  border: 1px solid $csp-border-color;
+  border-radius: $radius-sm;
+  padding: 0 24rpx;
+  font-size: $font-size-base;
+  color: $csp-text-primary;
+  text-align: right;
+  font-weight: $font-weight-medium;
+
+  &:focus { border-color: $primary-start; }
+  &[disabled] { background: #F5F5F5; color: $csp-text-placeholder; }
+}
+
+.input-unit {
+  font-size: $font-size-sm;
+  color: $csp-text-secondary;
+  white-space: nowrap;
+  font-weight: $font-weight-medium;
+}
+
+.sub-item {
+  display: flex;
+  align-items: center;
+}
+
+.sub-label {
+  font-size: $font-size-sm;
+  color: $csp-text-placeholder;
+  margin-right: 10rpx;
+}
+
+.sub-input {
+  width: 140rpx;
+  height: 64rpx;
+  background: #FFFFFF;
+  border: 1px solid $csp-border-color;
+  border-radius: $radius-sm;
+  padding: 0 14rpx;
+  font-size: $font-size-sm;
+  text-align: right;
+  color: $csp-text-primary;
+}
+
+.sub-unit {
+  font-size: $font-size-xs;
+  color: $csp-text-secondary;
+  margin-left: 6rpx;
+}
+
+.comp-hint {
+  display: block;
+  margin-top: $spacing-md;
+  font-size: $font-size-sm;
+  color: $status-pending;
+  text-align: center;
+  line-height: 1.5;
+  padding: 12rpx 0;
+  background: $status-pending-bg;
+  border-radius: $radius-sm;
+}
+
+// --- 备注 ---
+.remark-card { display: flex; flex-direction: column; }
+
+.remark-area {
+  width: 100%;
+  min-height: 180rpx;
+  margin-top: $spacing-md;
+  padding: $spacing-md;
+  background: #FAFAFA;
+  border-radius: $radius-sm;
+  border: 1px solid $csp-border-light;
+  font-size: $font-size-base;
+  color: $csp-text-primary;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+.remark-len {
+  align-self: flex-end;
+  margin-top: $spacing-sm;
+  font-size: $font-size-xs;
+  color: $csp-text-placeholder;
+}
+
+// --- 底部操作栏 ---
+.bottom-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 99999 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-lg;
+  padding: $spacing-xl $spacing-xxl calc($spacing-xl + env(safe-area-inset-bottom, 20px));
+  background: #FFFFFF;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+  min-height: 120rpx;
+
+  &__btn {
+    min-width: 260rpx;
+    height: 96rpx;
+    border-radius: $radius-xl;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:active { transform: scale(0.97); opacity: 0.9; }
+
+    &--draft {
+      flex: 1;
+      max-width: 280rpx;
+      background: #FFFFFF;
+      border: 2rpx solid #DDDDDD;
+      box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+    }
+
+    &--primary {
+      flex: 2.2;
+      background: linear-gradient(135deg, #1E3A5F, #2D5A8E);
+      box-shadow: 0 6rpx 24rpx rgba(30,58,95,0.35);
+    }
+  }
+
+  &__btn-text {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    letter-spacing: 3rpx;
+
+    &--draft { color: #333333; }
+    &--primary { color: #FFFFFF; }
+  }
+}
