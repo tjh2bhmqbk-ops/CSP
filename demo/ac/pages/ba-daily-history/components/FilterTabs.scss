@@ -1,0 +1,44 @@
+@import '@/styles/variables.scss';
+
+.filter-tabs {
+  background-color: #FFFFFF;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-sm;
+
+  &__list {
+    display: flex;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+  }
+
+  &__item {
+    padding: 14rpx 32rpx;
+    border-radius: $radius-full;
+    background: #F5F5F5;
+    transition: all $transition-fast;
+
+    &:active { transform: scale(0.96); }
+
+    &.--active {
+      background: $primary-gradient;
+      box-shadow: 0 6rpx 24rpx rgba(30, 58, 95, 0.28);
+    }
+  }
+
+  &__text {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $csp-text-secondary;
+
+    &--active { color: #FFFFFF; }
+  }
+
+  &__count {
+    display: block;
+    font-size: $font-size-sm;
+    color: $csp-text-placeholder;
+    text-align: right;
+  }
+}

@@ -8,23 +8,16 @@ export default function ProfilePage() {
   const [userInfo] = useState<ACUserInfo>(getACUserInfo())
 
   const menuItems = [
-    { icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="20" height="20">
-        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-      </svg>
-    ), title: '我的审批', desc: '查看历史审批记录', url: '/pages/approval-workbench/index' },
-    { icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="20" height="20">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-    ), title: '异常监控', desc: '异常柜台管理', url: '/pages/abnormal-counter/index' },
+    { icon: <Text className="menu-icon-text">📋</Text>, title: '我的审批', desc: '查看历史审批记录', url: '/pages/approval-workbench/index' },
+    { icon: <Text className="menu-icon-text">📊</Text>, title: '数据报表', desc: '日报与月报统计', url: '/pages/data-report/index' },
+    { icon: <Text className="menu-icon-text">🛡️</Text>, title: '异常监控', desc: '异常柜台管理', url: '/pages/abnormal-counter/index' },
   ]
 
   const handleNavigate = (url: string) => {
     if (url) {
       // 异常监控跳转到未上报页面
       if (url.includes('abnormal-counter')) {
-        Taro.switchTab({ url: '/pages/abnormal-counter/index' })
+        Taro.navigateTo({ url: '/pages/abnormal-counter/index' })
       } else {
         Taro.navigateTo({ url })
       }
@@ -69,6 +62,7 @@ export default function ProfilePage() {
         <Text className="footer-ver">CSP 审批端 v1.0.0</Text>
         <Text className="footer-copy">2026 竞品情报系统</Text>
       </View>
+      <AcTabBar active="profile" />
     </View>
   )
 }

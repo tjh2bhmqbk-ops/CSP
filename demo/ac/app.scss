@@ -1,12 +1,32 @@
 @import './styles/variables.scss';
 
-// 页面样式
+// ==================== Landing & AC 页面样式 ====================
 @import './pages/index/index.scss';
+@import './pages/ac-home/index.scss';
 @import './pages/approval-workbench/index.scss';
 @import './pages/approval-detail/index.scss';
 @import './pages/abnormal-counter/index.scss';
 @import './pages/data-report/index.scss';
-@import './pages/profile/index.scss';
+@import './pages/ac-profile/index.scss';
+
+// ==================== BA 页面样式 ====================
+@import './pages/ba-home/index.scss';
+@import './pages/ba-daily/index.scss';
+@import './pages/ba-daily/components/CompetitorCard.scss';
+@import './pages/ba-daily/components/DatePicker.scss';
+@import './pages/ba-daily/components/StatusSelector.scss';
+@import './pages/ba-daily-history/index.scss';
+@import './pages/ba-daily-history/components/FilterTabs.scss';
+@import './pages/ba-daily-history/components/RecordCard.scss';
+@import './pages/ba-daily-history/components/RecordDetailModal.scss';
+@import './pages/ba-monthly/index.scss';
+@import './pages/ba-monthly-history/index.scss';
+@import './pages/ba-monthly-history/components/RecordDetailModal.scss';
+@import './pages/ba-profile/index.scss';
+@import './pages/ba-abnormal-data/index.scss';
+@import './pages/ba-todo-list/index.scss';
+@import './pages/ba-todo-list/components/TodoDetailModal.scss';
+@import './pages/ba-competitor-mgmt/index.scss';
 
 page {
   font-family: $font-family;

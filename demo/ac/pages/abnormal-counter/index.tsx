@@ -59,18 +59,13 @@ export default function AbnormalCounterPage() {
       <View className="counter-list">
         {filteredCounters.length === 0 ? (
           <View className="empty-state">
-            <svg className="empty-icon" viewBox="0 0 24 24" fill="none" stroke="#CCCCCC" strokeWidth="1.5">
-              <circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/>
-            </svg>
+            <Text className="empty-icon">ℹ️</Text>
             <Text className="empty-text">暂无未上报柜台</Text>
           </View>
         ) : filteredCounters.map(counter => (
           <View key={counter.id} className="counter-card">
             <View className="card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke={counter.abnormalType === 'not_submitted' ? '#FAAD14' : '#F5222D'} strokeWidth="2">
-                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-              </svg>
+              <Text className="card-icon-text">{counter.abnormalType === 'not_submitted' ? '⚠️' : '❌'}</Text>
             </View>
             <View className="card-content">
               <View className="card-header">

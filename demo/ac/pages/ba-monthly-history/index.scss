@@ -1,0 +1,260 @@
+@import '@/styles/variables.scss';
+
+.monthly-hist-page {
+  min-height: 100vh;
+  background-color: $csp-bg;
+  padding-bottom: calc($spacing-xl + $safe-area-bottom);
+
+  &__content { padding: $spacing-lg; }
+}
+
+// --- 导航头部 ---
+.nav-bar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $nav-height;
+  padding: 0 $spacing-lg;
+  background: $header-gradient;
+
+  &__back {
+    width: 68rpx; height: 68rpx;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.75);
+    &:active { opacity: 0.7; }
+  }
+
+  &__title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $csp-text-primary;
+  }
+
+  &__placeholder { width: 68rpx; }
+}
+
+// --- 筛选栏 ---
+.filter-bar { margin-bottom: $spacing-md; }
+
+.filter-tabs {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.filter-tab {
+  padding: 14rpx 32rpx;
+  border-radius: $radius-full;
+  background: #F5F5F5;
+
+  &:active { transform: scale(0.96); }
+
+  &--active {
+    background: $primary-gradient;
+    box-shadow: 0 6rpx 24rpx rgba(30,58,95,0.28);
+  }
+}
+
+.filter-tab-text {
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $csp-text-secondary;
+
+  &--active { color: #FFFFFF; }
+}
+
+.filter-count {
+  font-size: $font-size-sm;
+  color: $csp-text-placeholder;
+  text-align: right;
+  display: block;
+}
+
+// --- 空状态 ---
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx $spacing-xl;
+
+  &__icon { margin-bottom: $spacing-xl; opacity: 0.4; }
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $csp-text-primary;
+    margin-bottom: $spacing-sm;
+  }
+  &__desc {
+    font-size: $font-size-base;
+    color: $csp-text-placeholder;
+    margin-bottom: $spacing-3xl;
+  }
+  &__btn {
+    padding: 24rpx 72rpx;
+    border-radius: $radius-full;
+    background: $primary-gradient;
+    box-shadow: 0 12rpx 40rpx rgba(30,58,95,0.28);
+    &:active { opacity: 0.85; }
+  }
+  &__btn-text {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: #FFFFFF;
+    letter-spacing: 2rpx;
+  }
+}
+
+// --- 记录列表 ---
+.record-list {
+  height: calc(100vh - 280rpx);
+}
+
+// --- 卡片 ---
+.record-card {
+  background-color: #FFFFFF;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-lg;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  transition: transform $transition-fast, box-shadow $transition-base;
+
+  &:active {
+    transform: translateY(-2rpx);
+    box-shadow: $shadow-lg;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-xl $spacing-xl $spacing-md;
+    background: linear-gradient(135deg, #FAFBFC, #F5F7FA);
+  }
+
+  &__month-info { display: flex; flex-direction: column; gap: 6rpx; }
+
+  &__month {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $csp-text-primary;
+  }
+
+  &__total {
+    font-size: $font-size-sm;
+    color: $primary-start;
+    font-weight: $font-weight-bold;
+  }
+
+  &__badge {
+    padding: 10rpx 26rpx;
+    border-radius: $radius-full;
+  }
+
+  &__badge-txt {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+  }
+
+  &__summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10rpx $spacing-xl;
+    margin: 0 $spacing-xl $spacing-xl;
+    padding: $spacing-xl;
+    background: #F9FAFB;
+    border-radius: $radius-md;
+    border: 2rpx solid #F0F0F0;
+  }
+
+  &__reject-box {
+    margin: 0 $spacing-xl $spacing-xl;
+    padding: $spacing-lg $spacing-xl;
+    background: $status-rejected-bg;
+    border-radius: $radius-sm;
+    border-left: 6rpx solid $status-rejected;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-md;
+    padding: $spacing-md $spacing-xl $spacing-xl;
+    border-top: 2rpx solid $csp-border-light;
+    background: #FCFCFC;
+  }
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8rpx 0;
+}
+
+.summary-brand {
+  font-size: $font-size-base;
+  color: $csp-text-secondary;
+  font-weight: $font-weight-medium;
+}
+
+.summary-val {
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+  color: $primary-start;
+}
+
+.summary-unit {
+  font-size: $font-size-sm;
+  color: $csp-text-placeholder;
+  margin-left: 6rpx;
+  font-weight: $font-weight-normal;
+}
+
+.reject-label {
+  display: block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $status-rejected;
+  margin-bottom: 8rpx;
+}
+
+.reject-text {
+  display: block;
+  font-size: $font-size-base;
+  color: $status-rejected;
+  line-height: 1.6;
+}
+
+.action-btn {
+  flex: 1;
+  height: 76rpx;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-fast;
+
+  &:active { transform: scale(0.97); }
+
+  &--outline {
+    border: 2rpx solid $btn-outline-border;
+    background: transparent;
+    &:active { background: #F8F8F8; }
+  }
+
+  &--solid {
+    background: $primary-gradient;
+    box-shadow: 0 6rpx 20rpx rgba(30,58,95,0.25);
+  }
+}
+
+.action-btn-text {
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+  letter-spacing: 1rpx;
+
+  &--outline { color: $btn-outline-text; }
+  &--solid { color: #FFFFFF; }
+}

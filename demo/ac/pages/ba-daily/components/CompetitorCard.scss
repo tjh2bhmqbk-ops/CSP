@@ -1,0 +1,130 @@
+@import '@/styles/variables.scss';
+
+.comp-card {
+  background-color: #F8F9FA;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  margin-bottom: $spacing-md;
+  transition: opacity $transition-base;
+  border: 2rpx solid rgba(0, 0, 0, 0.03);
+
+  &.--disabled {
+    opacity: 0.55;
+    background: #F0F0F0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__brand-row {
+    display: flex;
+    align-items: center;
+    gap: 14rpx;
+  }
+
+  &__dot {
+    width: 16rpx;
+    height: 16rpx;
+    border-radius: 50%;
+    background-color: $normal-badge;
+
+    &.--core {
+      background-color: $core-badge;
+      box-shadow: 0 0 6rpx rgba(245, 34, 45, 0.35);
+    }
+  }
+
+  &__brand {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $csp-text-primary;
+    letter-spacing: 1rpx;
+  }
+
+  &__body {}
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+
+    &--sub {
+      margin-top: $spacing-lg;
+      gap: $spacing-xxl;
+    }
+  }
+
+  &__label {
+    font-size: $font-size-base;
+    color: $csp-text-secondary;
+    white-space: nowrap;
+    min-width: 90rpx;
+    font-weight: $font-weight-medium;
+  }
+
+  &__sub-label {
+    font-size: $font-size-sm;
+    color: $csp-text-placeholder;
+    white-space: nowrap;
+    margin-right: 10rpx;
+  }
+
+  &__input {
+    flex: 1;
+    height: 72rpx;
+    background: #FFFFFF;
+    border: 2rpx solid $csp-border-color;
+    border-radius: $radius-sm;
+    padding: 0 24rpx;
+    font-size: $font-size-base;
+    color: $csp-text-primary;
+    text-align: right;
+    font-weight: $font-weight-medium;
+
+    &:focus { border-color: $primary-start; box-shadow: 0 0 0 3rpx rgba(30,58,95,0.08); }
+    &[disabled] { background: #F5F5F5; color: $csp-text-placeholder; }
+
+    &--small {
+      flex: none;
+      width: 160rpx;
+      height: 64rpx;
+      font-size: $font-size-sm;
+    }
+  }
+
+  &__unit {
+    font-size: $font-size-sm;
+    color: $csp-text-secondary;
+    white-space: nowrap;
+    font-weight: $font-weight-medium;
+
+    &--small { font-size: $font-size-xs; }
+  }
+
+  &__divider {
+    height: 2rpx;
+    background-color: $csp-border-light;
+    margin: $spacing-lg 0;
+  }
+
+  &__sub-item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__hint {
+    display: block;
+    margin-top: $spacing-lg;
+    font-size: $font-size-sm;
+    color: $status-pending;
+    text-align: center;
+    line-height: 1.5;
+    padding: 12rpx 0;
+    background: $status-pending-bg;
+    border-radius: $radius-sm;
+  }
+}

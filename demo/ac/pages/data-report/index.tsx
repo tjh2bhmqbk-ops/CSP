@@ -3,6 +3,7 @@ import Taro from '@tarojs/taro'
 import { View, Text, Picker } from '@tarojs/components'
 import { ApprovalTask } from '../../utils/types'
 import { STATUS_CONFIG, APPROVAL_TASKS_KEY, formatMoney, formatMonthDisplay, getPastMonthStr } from '../../utils/constants'
+import AcTabBar from '../../components/AcTabBar'
 
 type ReportType = 'daily' | 'monthly'
 
@@ -113,25 +114,17 @@ export default function DataReportPage() {
         {reportType === 'daily' ? (
           <Picker mode="date" value={dailyDate} onChange={onDailyDateChange}>
             <View className="date-picker-item">
-              <svg className="date-picker-icon" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
+              <Text className="date-picker-icon">📅</Text>
               <Text className="date-picker-text">{getDateLabel(dailyDate)}</Text>
-              <svg className="date-picker-arrow" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
+              <Text className="date-picker-arrow">⌄</Text>
             </View>
           </Picker>
         ) : (
           <Picker mode="selector" range={MONTH_LABELS} value={monthIdx} onChange={(e) => setMonthIdx(e.detail.value)}>
             <View className="date-picker-item">
-              <svg className="date-picker-icon" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
+              <Text className="date-picker-icon">📅</Text>
               <Text className="date-picker-text">{MONTH_LABELS[monthIdx]}</Text>
-              <svg className="date-picker-arrow" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="1.5">
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
+              <Text className="date-picker-arrow">⌄</Text>
             </View>
           </Picker>
         )}

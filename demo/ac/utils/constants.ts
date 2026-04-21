@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { ApprovalTask, AbnormalCounter, ApprovalStats, ACUserInfo } from './types'
+import { ApprovalTask, AbnormalCounter, ApprovalStats, ACUserInfo, CompetitorConfigItem, CounterStatus } from './types'
 
 /** 审核状态配置 */
 export const STATUS_CONFIG: Record<string, { label: string; color: string; bgColor: string }> = {
@@ -230,4 +230,142 @@ export function getACUserInfo(): ACUserInfo {
     employeeCode: 'AC-001',
     avatar: '/images/avatar.png',
   }
+}
+
+// ==================== BA端常量与工具 ====================
+
+/** 监控竞品品牌列表配置 */
+export const COMPETITOR_CONFIG: CompetitorConfigItem[] = [
+  { brand: 'Dior', type: 'core', counterStatus: 'normal' },
+  { brand: 'LV', type: 'core', counterStatus: 'normal' },
+  { brand: 'Gucci', type: 'normal', counterStatus: 'normal' },
+  { brand: 'Hermès', type: 'core', counterStatus: 'normal' },
+]
+
+/** 柜台状态选项 */
+export const COUNTER_STATUS_OPTIONS: { label: string; value: CounterStatus }[] = [
+  { label: '营业中', value: 'normal' },
+  { label: '装修中', value: 'renovation' },
+  { label: '撤柜', value: 'closed' },
+]
+
+/** Storage 键前缀 */
+export const STORAGE_KEY_PREFIX = 'csp_daily_'
+
+/** 竞品柜台维护存储键 */
+export const COMPETITOR_MGMT_STORAGE_KEY = 'csp_competitor_config'
+
+/** 竞品柜台 Demo 数据存储键 */
+export const COMPETITOR_DEMO_STORAGE_KEY = 'csp_competitor_demo'
+
+/** 草稿保存间隔 (ms) */
+export const DRAFT_SAVE_INTERVAL = 3000
+
+/** 月报上报时间配置 */
+export const MONTHLY_REPORT_WINDOW = { startDay: 1, endDay: 5 }
+
+/** 获取月报上报时间提示文案 */
+export function getMonthlyReportHint(): string {
+  return `每月${MONTHLY_REPORT_WINDOW.startDay}-${MONTHLY_REPORT_WINDOW.endDay}日可上报上月数据`
+}
+
+/** 默认竞品数据工厂 */
+export function createDefaultCompetitor(brand: string, type: 'core' | 'normal') {
+  return { brand, type, counterStatus: 'normal' as CounterStatus, sales: 0, traffic: 0, bigOrders: 0 }
+}
+
+/** 获取今天的日期字符串 YYYY-MM-DD */
+export function getTodayStr(): string {
+  const now = new Date()
+  const y = now.getFullYear()
+  const m = String(now.getMonth() + 1).padStart(2, '0')
+  const d = String(now.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
+
+/** 获取过去第N天的日期字符串 */
+export function getPastDateStr(daysAgo: number): string {
+  const d = new Date()
+  d.setDate(d.getDate() - daysAgo)
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+// ==================== BA端 Demo 数据生成 ====================
+
+let _dailyDemoInitialized = false
+let _monthlyDemoInitialized = false
+let _competitorDemoInitialized = false
+
+/** 生成近14天模拟日报数据 */
+export function generateDemoDailyReports(): void {
+  if (_dailyDemoInitialized) return
+  _dailyDemoInitialized = true
+  const brands = ['Dior', 'LV', 'Gucci', 'Hermès']
+  const types: ('core' | 'normal')[] = ['core', 'core', 'normal', 'core']
+  const baseSales = [35800, 42300, 28600, 51200]
+  let successCount = 0
+  for (let i = 14; i > 0; i--) {
+    const date = getPastDateStr(i)
+    const competitors = brands.map((b, idx) => {
+      const variance = 0.7 + Math.abs(Math.sin(i * idx + date.charCodeAt(0))) * 0.6
+      return { brand: b, type: types[idx], counterStatus: 'normal' as const, sales: Math.floor(baseSales[idx] * variance), traffic: 0, bigOrders: 0 }
+    })
+    let status: 'submitted' | 'approved' | 'draft'
+    if (i <= 3) status = 'submitted'
+    else if (i <= 8) status = 'approved'
+    else status = 'draft'
+    try {
+      Taro.setStorageSync(`csp_daily_${date}`, { date, status, submitTime: new Date(date + 'T10:' + String(30 + i).padStart(2, '0') + ':00').toISOString(), remark: '', competitors })
+      successCount++
+    } catch (e) { console.error(`[Demo] Failed to write daily ${date}:`, e) }
+  }
+  console.log(`[Demo] Daily reports: ${successCount}/14 written`)
+}
+
+/** 生成近6个月模拟月报数据 */
+export function generateDemoMonthlyReports(): void {
+  if (_monthlyDemoInitialized) return
+  _monthlyDemoInitialized = true
+  const now = new Date()
+  const brands = ['Dior', 'LV', 'Gucci', 'Hermès']
+  const types: ('core' | 'normal')[] = ['core', 'core', 'normal', 'core']
+  const monthBaseSales = [520000, 680000, 380000, 450000]
+  let successCount = 0
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+    const month = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+    const competitors = brands.map((b, idx) => {
+      const variance = 0.75 + Math.sin(i * idx * 0.5) * 0.4
+      return { brand: b, type: types[idx], counterStatus: 'normal' as const, sales: Math.floor(monthBaseSales[idx] * variance), traffic: 0, bigOrders: 0 }
+    })
+    let status: 'submitted' | 'approved' | 'draft'
+    if (i === 0) status = 'draft'
+    else if (i === 1) status = 'submitted'
+    else status = 'approved'
+    try {
+      Taro.setStorageSync(`csp_monthly_${month}`, { month, status, submitTime: new Date(d.getFullYear(), d.getMonth(), 15, 11, 0, 0).toISOString(), remark: '', competitors })
+      successCount++
+    } catch (e) { console.error(`[Demo] Failed to write monthly ${month}:`, e) }
+  }
+  console.log(`[Demo] Monthly reports: ${successCount}/6 written`)
+}
+
+/** 生成竞品柜台 Demo 数据 */
+export function generateDemoCompetitorData(): void {
+  if (_competitorDemoInitialized) return
+  _competitorDemoInitialized = true
+  const demoCompetitors = [
+    { brand: 'Dior', type: 'core' as const, status: 'active' as const, location: '杭州万象城 1F-A108', monthlySales: 358000 },
+    { brand: 'LV', type: 'core' as const, status: 'active' as const, location: '杭州万象城 1F-A112', monthlySales: 423000 },
+    { brand: 'Gucci', type: 'normal' as const, status: 'active' as const, location: '杭州万象城 1F-B205', monthlySales: 286000 },
+    { brand: 'Hermès', type: 'core' as const, status: 'active' as const, location: '杭州万象城 1F-A120', monthlySales: 512000 },
+    { brand: 'Chanel', type: 'core' as const, status: 'renovating' as const, location: '杭州万象城 1F-A115', monthlySales: 0 },
+    { brand: 'Prada', type: 'normal' as const, status: 'closed' as const, location: '杭州万象城 2F-C301', monthlySales: 0 },
+    { brand: 'Burberry', type: 'normal' as const, status: 'active' as const, location: '杭州万象城 1F-B208', monthlySales: 198000 },
+    { brand: 'Cartier', type: 'normal' as const, status: 'active' as const, location: '杭州万象城 1F-A105', monthlySales: 267000 },
+  ]
+  try {
+    Taro.setStorageSync(COMPETITOR_DEMO_STORAGE_KEY, { competitors: demoCompetitors, lastUpdated: new Date().toISOString() })
+    console.log(`[Demo] Competitor data: ${demoCompetitors.length} items written`)
+  } catch (e) { console.error('[Demo] Failed to write competitor demo data:', e) }
 }

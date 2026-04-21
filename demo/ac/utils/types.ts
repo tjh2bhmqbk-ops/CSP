@@ -82,3 +82,35 @@ export interface ReportFilter {
   brands?: string[]
   status?: ReportStatus | 'all'
 }
+
+// ==================== BA端专用类型 ====================
+
+/** 单日上报记录 */
+export interface DailyReport {
+  date: string
+  status: ReportStatus
+  submitTime: string
+  remark: string
+  competitors: CompetitorData[]
+  rejectReason?: string
+}
+
+/** 表单状态 */
+export interface FormState {
+  date: string
+  remark: string
+  competitors: CompetitorData[]
+}
+
+/** 筛选条件 */
+export interface FilterCondition {
+  status?: ReportStatus | 'all'
+  month?: string
+}
+
+/** 竞品配置项（含柜台状态） */
+export interface CompetitorConfigItem {
+  brand: string
+  type: CompetitorType
+  counterStatus: CounterStatus
+}

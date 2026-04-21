@@ -3,6 +3,7 @@
 .workbench-page {
   min-height: 100vh;
   background-color: $csp-bg;
+  padding-bottom: calc($tab-bar-height + $safe-area-bottom);
 }
 
 .page-header {
@@ -118,7 +119,7 @@
 }
 
 .batch-btn {
-  padding: 28rpx 52rpx;
+  padding: 24rpx 40rpx;
   border-radius: $radius-md;
   font-size: $font-size-base;
   font-weight: $font-weight-bold;

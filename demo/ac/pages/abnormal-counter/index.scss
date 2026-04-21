@@ -3,7 +3,7 @@
 .abnormal-page {
   min-height: 100vh;
   background-color: $csp-bg;
-  padding-bottom: calc($tab-bar-height + $spacing-xl + $safe-area-bottom);
+  padding-bottom: calc($spacing-xl + $safe-area-bottom);
 }
 
 .page-header {

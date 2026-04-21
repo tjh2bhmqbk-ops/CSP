@@ -3,6 +3,7 @@ import Taro from '@tarojs/taro'
 import { View, Text, Checkbox } from '@tarojs/components'
 import { ApprovalTask } from '../../utils/types'
 import { STATUS_CONFIG, APPROVAL_TASKS_KEY, formatMonthDisplay } from '../../utils/constants'
+import AcTabBar from '../../components/AcTabBar'
 
 type WorkbenchTab = 'pending' | 'approved' | 'rejected'
 
@@ -149,6 +150,7 @@ export default function ApprovalWorkbenchPage() {
           </View>
         ))}
       </View>
+      <AcTabBar active="workbench" />
     </View>
   )
 }

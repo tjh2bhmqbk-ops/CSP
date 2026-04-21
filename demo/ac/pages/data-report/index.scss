@@ -3,7 +3,7 @@
 .report-page {
   min-height: 100vh;
   background-color: $csp-bg;
-  padding-bottom: calc($tab-bar-height + $spacing-xl + $safe-area-bottom);
+  padding-bottom: calc($tab-bar-height + $safe-area-bottom);
 }
 
 .page-header {
@@ -129,10 +129,10 @@
     color: $csp-text-secondary;
     text-align: center;
 
-    &.--date { width: 200rpx; }
-    &.--counter { flex: 1; }
-    &.--amount { width: 220rpx; }
-    &.--status { width: 160rpx; }
+    &.--date { width: 160rpx; flex-shrink: 0; }
+    &.--counter { flex: 1; min-width: 0; }
+    &.--amount { width: 180rpx; flex-shrink: 0; }
+    &.--status { width: 140rpx; flex-shrink: 0; }
   }
 }
 
@@ -147,10 +147,10 @@
     color: $csp-text-primary;
     text-align: center;
 
-    &.--date { width: 200rpx; }
-    &.--counter { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    &.--amount { width: 220rpx; }
-    &.--status { width: 160rpx; }
+    &.--date { width: 160rpx; flex-shrink: 0; }
+    &.--counter { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    &.--amount { width: 180rpx; flex-shrink: 0; }
+    &.--status { width: 140rpx; flex-shrink: 0; }
   }
 }
 
