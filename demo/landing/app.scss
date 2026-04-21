@@ -1,0 +1,16 @@
+@import './styles/variables.scss';
+
+page {
+  font-family: $font-family;
+  font-size: $font-size-base;
+  color: $csp-text-primary;
+  background-color: $csp-bg;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+view, text, image, input, textarea, picker {
+  box-sizing: border-box;
+}
+
+@import './pages/index/index.scss';
